@@ -2,9 +2,18 @@
 document.getElementById('calcuButton').addEventListener('click', function() {
     const side = document.getElementById('sides').value;
     const length = document.getElementById('length').value;
-    checkNumber(side,length);
+    let area = checkNumber(side,length);
+    document.getElementById('welcomeMessage').textContent = area 
 });
+function getTanFromDegrees(degrees) {
+  return Math.tan((degrees * Math.PI) / 180);
+}
+
 
 checkNumber(sideF,lengthF) {
-    areaF =  ((lengthF**2)*(sideF)/(Math.tan(Math.PI/2/sideF)))/4 ;
+    let pi = Math.PI
+    let advangle = 360/sideF
+    let tanangle = function getTanFromDegrees(advangle)
+    areaF =  ((lengthF**2)*(sideF)/(Math.tan(pi/2/sideF)))/4 ;
+    return areaF
 };
