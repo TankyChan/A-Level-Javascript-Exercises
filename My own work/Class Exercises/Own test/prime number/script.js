@@ -1,27 +1,29 @@
 document.getElementById('checkButton').addEventListener('click', function() {
     const min = document.getElementById('minnum').value;
     const max = document.getElementById('maxnum').value;
-    findPime(min,max);
+    findPrime(min,max);
 });
 
-function findPime(minF,maxF){
-    let checkNum = minF;
-    let halfNum = 0;
+function findPrime(minF,maxF){
+    let checkNum = minF
     let prime = true
     let allprime = []
-    while (checkNum < maxF+1){
-        halfNum = checkNum/2
+    while (checkNum <= maxF){
         let factor = 2
-        while ((factor < halfNum)||(prime = true)){
+        if (checkNum < 2) {
+            isPrime = false;
+        }
+        while ((factor <= Math.sqrt(checkNum))||(prime === true)){
             if (checkNum%factor===0){
                 prime = false
             }
             factor++
         }
         if (prime = true){
-            
+            allprime.push(checkNum)
         }
-        prime = false
+        prime = true
         checkNum ++
     }
+    console.log(allPrime);
 }
