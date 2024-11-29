@@ -26,5 +26,14 @@ function findPrime(minF,maxF){
         prime = true
         checkNum ++
     }
-    document.getElementById('resultMessage').innerHTML = allprime ;
+    let output = ""
+    let loop = 1
+    while (loop < allprime.length+1){
+        output = output+allprime[loop-1]+" "
+        if ((loop%10===0)&&(loop>=10)){
+            output = output+ '<br/>'
+        }
+        loop++
+    }
+    document.getElementById('resultMessage').innerHTML = output ;
 }
