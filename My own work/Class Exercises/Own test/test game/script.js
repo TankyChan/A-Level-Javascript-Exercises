@@ -18,7 +18,7 @@ function setup() {
 	walls.h = 50 
 	walls.tile= "="
 	walls.collider = "static"
-	walls.drag = 5 ;
+	walls.drag = 0 ;
 	walls.color = "blue"
 	walls.bounciness = 0.1;
 
@@ -32,9 +32,9 @@ function setup() {
 	pbullet = new Group()
 	pbullet.diameter=10
 	pbullet.color = "red"
-	pbullet.amount = 0 ;
-	pbullet.sleeping = true
-
+	pbullet.collider = "none"
+	pbullet.speed = 7
+	
 
 
 
@@ -65,7 +65,7 @@ function draw() {
 			player.vel.x = -3 ;
 		}
 		if (kb.presses("o")&&player.colliding(walls)){
-			player.vel.x = -6
+			player.vel.x = -7
 		}
 	}
 	else if (kb.pressing("d"))
@@ -75,7 +75,7 @@ function draw() {
 			player.vel.x = 3 ;
 		}
 		if (kb.presses("o")&&player.colliding(walls)){
-			player.vel.x = 6
+			player.vel.x = 7
 		} 
 	}
 	else if (player.colliding(walls)){
@@ -95,31 +95,31 @@ function draw() {
 
 	if (player.colliding(walls)){
 		doublejump = true
-		player.drag = 1
-	}
-	else {
-		player.drag = 0
 	}
 
-	if (kb.pressed("i")){
-		if (pbullet.amount<4){
-			pbullet.amount += 1
+	if (kb.presses("i")){
+			let pb = new pbullet.Sprite()
+			if (right == true){
+				pb.x = player.x +18
+				pb.y = player.y
+				pb.direction = 0;
+			}
+			else if (right == false){
+				pb.x = player.x -18
+				pb.y = player.y
+				pb.direction = 180;
+			
+			}
 		}
-		if (right == true){
-			pbullet.x = player.x +18
-			pbullet.y = player.y
-			pbullet.dire
-		}
-		else if (right == false){
-			pbullet.x = player.x -18
-			pbullet.y = player.y
-		}
-		
-	}
 
-	if(pbullet.collides(walls)){
-		pbullet.amount -= 1
-	}
+		for (let pbn = 0 ; pbn < pbullet.length ; pbn++){
+			if (pbullet[pbn].overlaps(walls)){
+				pbullet[pbn].remove
+			}
+		}
+
+
+
 
 	camera.x = player.x;
 	camera.y = player.y;
