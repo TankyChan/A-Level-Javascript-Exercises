@@ -32,8 +32,9 @@ function setup() {
 	pbullet = new Group()
 	pbullet.diameter=10
 	pbullet.color = "red"
-	pbullet.amount = 1 ;
-	pbullet.gravity = 0;
+	pbullet.amount = 0 ;
+	pbullet.sleeping = true
+
 
 
 
@@ -52,12 +53,14 @@ function setup() {
 	)
 }
 let doublejump = true ;
+let right = true ;
 
 function draw() {
 	clear();
 	background(0)
 	if (kb.pressing("a"))
 	{
+		right = false
 		if (player.vel.x > -3){
 			player.vel.x = -3 ;
 		}
@@ -67,6 +70,7 @@ function draw() {
 	}
 	else if (kb.pressing("d"))
 	{
+		right = true
 		if (player.vel.x < 3){
 			player.vel.x = 3 ;
 		}
@@ -98,13 +102,23 @@ function draw() {
 	}
 
 	if (kb.pressed("i")){
-		pbullet.x = player.x +15
-		pbullet.y = player.y
-		pbullet.sleeping = true;
-		while (pbullet.colliding(walls)==false){
-			pbullet.x += 7
+		if (pbullet.amount<4){
+			pbullet.amount += 1
+		}
+		if (right == true){
+			pbullet.x = player.x +18
+			pbullet.y = player.y
+			pbullet.dire
+		}
+		else if (right == false){
+			pbullet.x = player.x -18
+			pbullet.y = player.y
 		}
 		
+	}
+
+	if(pbullet.collides(walls)){
+		pbullet.amount -= 1
 	}
 
 	camera.x = player.x;
