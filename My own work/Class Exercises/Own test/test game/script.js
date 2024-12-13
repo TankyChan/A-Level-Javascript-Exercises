@@ -4,8 +4,9 @@ let roff ;
 let bullet ;
 let walls ;
 
+
 function setup() {
-	new Canvas(500, 250);
+	new Canvas(windowWidth, windowHeight);
 	world.gravity.y = 11;
 
 	player = new Sprite(100,100,25,25)
@@ -35,6 +36,8 @@ function setup() {
 	walls.h = 50
 	walls.color = "green"
 	walls.collider = "none"
+	walls.tile = "|"
+	walls.amount = roff.amount*2
 
 	pbullet = new Group()
 	pbullet.diameter=10
@@ -47,7 +50,7 @@ function setup() {
 
 	new Tiles(
 		["-------------",
-		 "=...........=",
+		 "=|..........=",
 		 "=...........=",
 		 "=...........=",
 		 "=...==......=",
@@ -57,6 +60,7 @@ function setup() {
 		 50,
 		 floor.w,
 		 floor.h,
+		
 
 	)
 
@@ -88,7 +92,7 @@ function draw() {
 		} 
 	}
 	else if (player.colliding(floor)){
-		player.vel.x = 0
+			player.vel.x = 0 ;
 	}
 	
 	if (kb.presses("space")&&(player.colliding(floor)||doublejump))
