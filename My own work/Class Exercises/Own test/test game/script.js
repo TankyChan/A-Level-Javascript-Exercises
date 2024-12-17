@@ -1,4 +1,5 @@
-let player;
+let playerl;
+let playerb ;
 let floor;
 let roff ; 
 let bullet ;
@@ -6,14 +7,22 @@ let walls ;
 
 
 function setup() {
-	new Canvas(windowWidth, windowHeight);
+	new Canvas(500, 250);
 	world.gravity.y = 11;
 
-	player = new Sprite(100,100,25,25)
-	player.color = "red"
-	player.rotationLock=true;
-	player.drag = 0;
-	player.bounciness = 0;
+	playerb = new Sprite(100,100,25,15)
+	playerb.color = "red"
+	playerb.rotationLock=true;
+	playerb.drag = 0;
+	playerb.bounciness = 0;
+	playerb.mass = 0.1
+
+	playerl = new Sprite(100,112.5,25,10)
+	playerl.color = "red"
+	playerl.rotationLock=true;
+	playerl.drag = 0;
+	playerl.bounciness = 0;
+	playerl.mass = 2
 
 	floor = new Group();
 	floor.w = 50
@@ -50,7 +59,11 @@ function setup() {
 
 	new Tiles(
 		["-------------",
-		 "=|..........=",
+		 "=...........=",
+		 "=...........=",
+		 "=...........=",
+		 "=...........=",
+		 "=...........=",
 		 "=...........=",
 		 "=...........=",
 		 "=...==......=",
@@ -63,6 +76,7 @@ function setup() {
 		
 
 	)
+	player = new GlueJoint(playerb, playerl);
 
 }
 let doublejump = true ;
@@ -74,53 +88,84 @@ function draw() {
 	if (kb.pressing("a"))
 	{
 		right = false
-		if (player.vel.x > -3){
-			player.vel.x = -3 ;
+		if (playerl.vel.x > -3){
+			playerl.vel.x = -3 ;
 		}
-		if (kb.presses("o")&&player.colliding(floor)){
-			player.vel.x = -6
+		if (kb.presses("o")&&playerl.colliding(floor)){
+			playerl.vel.x = -6
+		}
+		if (playerb.colliding(floor)&&playerb.colliding(floor)){
+			playerl.y += 1
+			playerb.y += 1
 		}
 	}
 	else if (kb.pressing("d"))
 	{
 		right = true
-		if (player.vel.x < 3){
-			player.vel.x = 3 ;
+		if (playerl.vel.x < 3){
+			playerl.vel.x = 3 ;
 		}
-		if (kb.presses("o")&&player.colliding(floor)){
-			player.vel.x = 6
+		if (kb.presses("o")&&playerl.colliding(floor)){
+			playerl.vel.x = 6
 		} 
+		if (playerb.colliding(floor)&&playerb.colliding(floor)){
+			playerl.y += 1
+			playerb.y += 1
+		}
 	}
-	else if (player.colliding(floor)){
-			player.vel.x = 0 ;
+	else if (playerl.colliding(floor)){
+			playerl.vel.x = 0 
 	}
 	
-	if (kb.presses("space")&&(player.colliding(floor)||doublejump))
+	if (kb.presses("space")&&(playerl.colliding(floor)||doublejump))
 	{
-		if (player.colliding(floor)){
-			player.vel.y = -6 ;
+		if (playerl.colliding(floor)&&playerb.colliding(floor)){
+			playerl.vel.y = -7 ;
+			if (right){
+				playerl.vel.x = -6
+			}
+			else {
+				playerl.vel.x = +6
+			}
 		}
-		else if (player.collided(floor) == false){
+		else if(playerl.colliding(floor)&&playerb.colliding(floor)==false){
+			playerl.vel.y = -6 ;
+		}
+		else if (playerl.collided(floor) == false){
 			doublejump = false
-			player.vel.y = -5 ;
+			playerl.vel.y = -5 ;
 		}
 	}
 
-	if (player.colliding(floor)){
+	if (playerl.colliding(floor)||playerb.colliding(floor)){
 		doublejump = true
 	}
 
 	if (kb.presses("i")){
 			let pb = new pbullet.Sprite()
 			if (right == true){
-				pb.x = player.x +18
-				pb.y = player.y
-				pb.direction = 0;
+				if (playerl.colliding(floor)&&playerb.colliding(floor)){
+					pb.x = playerb.x -18
+					pb.y = playerb.y
+					pb.direction = 180;
+				}
+				else {
+					pb.x = playerb.x +18
+					pb.y = playerb.y
+					pb.direction = 0;
+				}
 			}
 			else if (right == false){
-				pb.x = player.x -18
-				pb.y = player.y
-				pb.direction = 180;
+				if (playerl.colliding(floor)&&playerb.colliding(floor)){
+					pb.x = playerb.x + 18
+					pb.y = playerb.y
+					pb.direction = 0;
+				}
+				else{
+					pb.x = playerb.x -18
+					pb.y = playerb.y
+					pb.direction = 180;
+				}
 			}
 		}
 
@@ -137,8 +182,8 @@ function draw() {
 
 
 
-	camera.x = player.x;
-	camera.y = player.y;
+	camera.x = playerl.x;
+	camera.y = playerl.y;
 
 
 
