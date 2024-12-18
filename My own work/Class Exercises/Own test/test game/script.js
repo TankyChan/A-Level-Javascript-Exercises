@@ -3,21 +3,21 @@ let playerb ;
 let floor;
 let roff ; 
 let bullet ;
-let walls ;
+;let screenborder
 
 
 function setup() {
 	new Canvas(500, 250);
 	world.gravity.y = 11;
 
-	playerb = new Sprite(100,100,25,15)
+	playerb = new Sprite(100,100,25,20)
 	playerb.color = "red"
 	playerb.rotationLock=true;
 	playerb.drag = 0;
 	playerb.bounciness = 0;
 	playerb.mass = 0.1
 
-	playerl = new Sprite(100,112.5,25,10)
+	playerl = new Sprite(100,112.5,25,5)
 	playerl.color = "red"
 	playerl.rotationLock=true;
 	playerl.drag = 0;
@@ -40,19 +40,18 @@ function setup() {
 	roff.collider = "static"
 	roff.color = "yellow"
 
-	walls = new Group();
-	walls.w = 1
-	walls.h = 50
-	walls.color = "green"
-	walls.collider = "none"
-	walls.tile = "|"
-	walls.amount = roff.amount*2
-
 	pbullet = new Group()
 	pbullet.diameter=10
 	pbullet.color = "red"
 	pbullet.collider = "none"
 	pbullet.speed = 7
+
+	borderLR = new Group()
+	borderLR.color = "green"
+	borderLR.collider = "none"
+	borderLR.w = 5
+	borderLR.h = 250
+
 	
 
 
@@ -79,10 +78,15 @@ function setup() {
 	player = new GlueJoint(playerb, playerl);
 
 }
+
 let doublejump = true ;
 let right = true ;
 
+
+
+
 function draw() {
+
 	clear();
 	background(0)
 	if (kb.pressing("a"))
@@ -177,13 +181,16 @@ function draw() {
 			if (pbn>3){
 				pbullet[pbn].remove()
 			}
-		}
+	}
+
+	let borderR = new borderLR.Sprite()
+	borderR.x = playerb.x + 120
 
 
 
 
-	camera.x = playerl.x;
-	camera.y = playerl.y;
+	camera.x = playerb.x;
+	camera.y = playerb.y;
 
 
 
