@@ -187,12 +187,12 @@ function draw() {
 		let slashing = new slash.Sprite()
 		slashing.offset.y = 30
 		slashing.y = playerb.y
-		if (right == true){
+		if (right === true){
 			slashing.rotation = 225
 			slashing.x = playerb.x + 15
 			slashing.rotate(90,8)
 			for (let slashnum = 0 ; slashnum < slash.length ; slashnum++) {
-				if (slash[slashnum].rotation > 310){
+				if (slash[slashnum].rotation >= 310){
 					slash[slashnum].remove()
 					slashnum -= 1
 				}
