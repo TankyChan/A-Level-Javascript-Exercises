@@ -3,8 +3,7 @@ let playerb ;
 let floor;
 let roff ; 
 let bullet ;
-;let screenborder
-
+let slash ; 
 
 function setup() {
 	new Canvas(500, 250);
@@ -46,12 +45,10 @@ function setup() {
 	pbullet.collider = "none"
 	pbullet.speed = 7
 
-	borderLR = new Group()
-	borderLR.color = "green"
-	borderLR.collider = "none"
-	borderLR.w = 5
-	borderLR.h = 250
-
+	slash = new Group()
+	slash.w = 5
+	slash.l = 80
+	slash.collider = "n"
 	
 
 
@@ -117,7 +114,8 @@ function draw() {
 			playerb.y += 1
 		}
 	}
-	else if (playerl.colliding(floor)){
+	else if (playerl.colliding(floor))
+	{
 			playerl.vel.x = 0 
 	}
 	
@@ -141,11 +139,13 @@ function draw() {
 		}
 	}
 
-	if (playerl.colliding(floor)||playerb.colliding(floor)){
+	if (playerl.colliding(floor)||playerb.colliding(floor))
+	{
 		doublejump = true
 	}
 
-	if (kb.presses("i")){
+	if (kb.presses("i"))
+	{
 			let pb = new pbullet.Sprite()
 			if (right == true){
 				if (playerl.colliding(floor)&&playerb.colliding(floor)){
@@ -174,24 +174,35 @@ function draw() {
 		}
 
 		for (let pbn = 0 ; pbn < pbullet.length ; pbn++) {
-			if (pbullet[pbn].overlaps(floor)){
+			if (pbullet[pbn].overlaps(floor)||pbullet[pbn].x>playerb.x+300){
 				pbullet[pbn].remove()
 				pbn -= 1
 			}
 			if (pbn>3){
 				pbullet[pbn].remove()
+			}}
+	
+
+	if (kb.presses("u")){
+		let slashing = new slash.Sprite()
+		slashing.offset.y = 30
+		if (right == true){
+			slashing.rotation = 225
+			slashing.x = playerb.x + 15
+			slashing.y = playerb.y
+			slashing.rotate(90,8)
+			for (let slashnum = 0 ; slashnum < slash.length ; slashnum++) {
+				if (slash[slashnum].rotation > 310){
+					slash[slashnum].remove()
+					slashnum -= 1
+				}
 			}
+		}
 	}
-
-	let borderR = new borderLR.Sprite()
-	borderR.x = playerb.x + 120
-
-
-
 
 	camera.x = playerb.x;
 	camera.y = playerb.y;
 
-
-
 }
+
+
