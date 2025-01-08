@@ -4,6 +4,7 @@ let floor;
 let roff ; 
 let bullet ;
 let slash ; 
+let slashing
 
 function setup() {
 	new Canvas(500, 250);
@@ -78,6 +79,7 @@ function setup() {
 
 let doublejump = true ;
 let right = true ;
+
 
 
 
@@ -184,22 +186,19 @@ function draw() {
 	
 
 	if (kb.presses("u")){
-		let slashing = new slash.Sprite()
+		slashing = new slash.Sprite()
 		slashing.offset.y = 30
 		slashing.y = playerb.y
 		if (right === true){
+			slashing.rotationSpeed = 8;
 			slashing.rotation = 225
 			slashing.x = playerb.x + 15
-			slashing.rotate(90,8)
-			for (let slashnum = 0 ; slashnum < slash.length ; slashnum++) {
-				if (slash[slashnum].rotation >= 310){
-					slash[slashnum].remove()
-					slashnum -= 1
-				}
-			}
 		}
 	}
-
+	if (slashing && slashing.rotation >= 90) {
+		slashing.remove();
+		slashing = null;
+	}
 	camera.x = playerb.x;
 	camera.y = playerb.y;
 
