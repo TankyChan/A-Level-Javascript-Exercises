@@ -186,10 +186,10 @@ function draw() {
 	if (kb.presses("u")){
 		let slashing = new slash.Sprite()
 		slashing.offset.y = 30
+		slashing.y = playerb.y
 		if (right == true){
 			slashing.rotation = 225
 			slashing.x = playerb.x + 15
-			slashing.y = playerb.y
 			slashing.rotate(90,8)
 			for (let slashnum = 0 ; slashnum < slash.length ; slashnum++) {
 				if (slash[slashnum].rotation > 310){
