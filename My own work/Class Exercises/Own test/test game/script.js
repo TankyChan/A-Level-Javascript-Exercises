@@ -199,6 +199,7 @@ function draw() {
 		slashing.remove();
 		slashing = null;
 	}
+	
 	camera.x = playerb.x;
 	camera.y = playerb.y;
 
