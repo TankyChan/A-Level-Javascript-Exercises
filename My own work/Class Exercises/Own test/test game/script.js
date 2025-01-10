@@ -1,7 +1,6 @@
 let playerl;
 let playerb ;
 let floor;
-let roff ; 
 let bullet ;
 let slash ; 
 let slashing
@@ -15,14 +14,14 @@ function setup() {
 	playerb.rotationLock=true;
 	playerb.drag = 0;
 	playerb.bounciness = 0;
-	playerb.mass = 0.1
+	playerb.mass = 2
 
 	playerl = new Sprite(100,112.5,25,5)
 	playerl.color = "red"
 	playerl.rotationLock=true;
 	playerl.drag = 0;
 	playerl.bounciness = 0;
-	playerl.mass = 2
+	playerl.mass = 1
 
 	floor = new Group();
 	floor.w = 50
@@ -32,13 +31,6 @@ function setup() {
 	floor.drag = 0 ;
 	floor.color = "blue"
 	floor.bounciness = 0.1;
-
-	roff = new Group();
-	roff.w = 50
-	roff.h = 50 
-	roff.tile= "-"
-	roff.collider = "static"
-	roff.color = "yellow"
 
 	pbullet = new Group()
 	pbullet.diameter=10
@@ -55,7 +47,7 @@ function setup() {
 
 
 	new Tiles(
-		["-------------",
+		["=============",
 		 "=...........=",
 		 "=...........=",
 		 "=...........=",
@@ -92,24 +84,24 @@ function draw() {
 	{
 		right = false
 		if (playerl.vel.x > -3){
-			playerl.vel.x = -3 ;
+			playerb.vel.x = -4.5 ;
 		}
 		if (kb.presses("o")&&playerl.colliding(floor)){
-			playerl.vel.x = -6
+			playerb.vel.x = -7
 		}
 		if (playerb.colliding(floor)&&playerb.colliding(floor)){
-			playerl.y += 1
 			playerb.y += 1
+			playerl.y += 1
 		}
 	}
 	else if (kb.pressing("d"))
 	{
 		right = true
 		if (playerl.vel.x < 3){
-			playerl.vel.x = 3 ;
+			playerb.vel.x = 4.5 ;
 		}
 		if (kb.presses("o")&&playerl.colliding(floor)){
-			playerl.vel.x = 6
+			playerb.vel.x = 7
 		} 
 		if (playerb.colliding(floor)&&playerb.colliding(floor)){
 			playerl.y += 1
@@ -118,30 +110,30 @@ function draw() {
 	}
 	else if (playerl.colliding(floor))
 	{
-			playerl.vel.x = 0 
+			playerb.vel.x = 0 
 	}
 	
 	if (kb.presses("space")&&(playerl.colliding(floor)||doublejump))
 	{
 		if (playerl.colliding(floor)&&playerb.colliding(floor)){
-			playerl.vel.y = -7 ;
+			playerb.vel.y = -10 ;
 			if (right){
-				playerl.vel.x = -6
+				playerb.vel.x = -8
 			}
 			else {
-				playerl.vel.x = +6
+				playerb.vel.x = +8
 			}
 		}
 		else if(playerl.colliding(floor)&&playerb.colliding(floor)==false){
-			playerl.vel.y = -6 ;
+			playerb.vel.y = -8 ;
 		}
 		else if (playerl.collided(floor) == false){
 			doublejump = false
-			playerl.vel.y = -5 ;
+			playerb.vel.y = -7 ;
 		}
 	}
 
-	if (playerl.colliding(floor)||playerb.colliding(floor))
+	if (playerl.colliding(floor))
 	{
 		doublejump = true
 	}
@@ -188,17 +180,19 @@ function draw() {
 	if (kb.presses("u")){
 		slashing = new slash.Sprite()
 		slashing.offset.y = 30
-		slashing.y = playerb.y
-		if (right === true){
-			slashing.rotationSpeed = 8;
-			slashing.rotation = 225
-			slashing.x = playerb.x + 15
+		if (kb.pressing("u")){
+			slashing.y = playerb.y
 		}
+		if (right == true){
+			slashing.x = playerb.x +20
+			slashing.rotation = 225
+			slashing.rotate(90,8)
+		}
+		
 	}
-	if (slashing && slashing.rotation >= 90) {
-		slashing.remove();
-		slashing = null;
-	}
+
+
+
 	
 	camera.x = playerb.x;
 	camera.y = playerb.y;
