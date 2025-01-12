@@ -1,7 +1,6 @@
 let playerl;
 let playerb ;
 let floor;
-let roff ; 
 let bullet ;
 let slash ; 
 let slashing
@@ -33,12 +32,6 @@ function setup() {
 	floor.color = "blue"
 	floor.bounciness = 0.1;
 
-	roff = new Group();
-	roff.w = 50
-	roff.h = 50 
-	roff.tile= "-"
-	roff.collider = "static"
-	roff.color = "yellow"
 
 	pbullet = new Group()
 	pbullet.diameter=10
@@ -55,7 +48,7 @@ function setup() {
 
 
 	new Tiles(
-		["-------------",
+		["=============",
 		 "=...........=",
 		 "=...........=",
 		 "=...........=",
@@ -141,7 +134,7 @@ function draw() {
 		}
 	}
 
-	if (playerl.colliding(floor)||playerb.colliding(floor))
+	if (playerl.colliding(floor))
 	{
 		doublejump = true
 	}
@@ -189,15 +182,19 @@ function draw() {
 		slashing = new slash.Sprite()
 		slashing.offset.y = 30
 		slashing.y = playerb.y
+		slashing.life = 30
 		if (right === true){
-			slashing.rotationSpeed = 8;
+			slashing.rotate(90,8)
 			slashing.rotation = 225
 			slashing.x = playerb.x + 15
 		}
-	}
-	if (slashing && slashing.rotation >= 90) {
-		slashing.remove();
-		slashing = null;
+		while (kb.pressing('u')){
+			slashing.x = playerb.x + 15
+			slashing.y = playerb.y
+			slashing.rotation = 315
+			slashing.life += 1
+		}
+		
 	}
 	
 	camera.x = playerb.x;
