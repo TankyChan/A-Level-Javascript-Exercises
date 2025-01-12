@@ -186,14 +186,16 @@ function draw() {
 			slashing.rotate(90,8)
 			slashing.rotation = 225
 			slashing.rotate(90,8)
+			if (kb.pressing('u')){
+				slashing.x = playerb.x + 15
+				slashing.y = playerb.y
+				slashing.rotation = 315
+			}
 		}
+
+
 	}
-	while (kb.pressing('u')){
-		slashing.x = playerb.x + 15
-		slashing.y = playerb.y
-		slashing.rotation = 315
-		slashing.life += 1
-	}
+
 	
 
 
