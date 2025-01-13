@@ -43,6 +43,7 @@ function setup() {
 	slash.w = 5
 	slash.l = 80
 	slash.collider = "n"
+	slash.offset.y = 30 
 	
 
 
@@ -179,21 +180,36 @@ function draw() {
 	
 
 	if (kb.presses("u")){
-		slashing = new slash.Sprite()
-		slashing.offset.y = 30
+		let slashing = new slash.Sprite()
+		slashing.offset.y = 30 
 		slashing.y = playerb.y
+		slashing.life = 20
 		if (right === true){
-			slashing.rotate(90,8)
+			slashing.x = playerb.x +10
 			slashing.rotation = 225
-			slashing.rotate(90,8)
-			if (kb.pressing('u')){
-				slashing.x = playerb.x + 15
-				slashing.y = playerb.y
-				slashing.rotation = 315
-			}
+			slashing.rotate(90,10)
 		}
-
-
+		if (right === false){
+			slashing.x = playerb.x -10
+			slashing.rotation = 135
+			slashing.rotate(-90,10)
+		}
+	}
+	for (let psl = 0 ; psl < slash.length ; psl++) {
+		if (psl>0){
+			slash[psl].remove()
+		}
+		if (right == true){
+			slash[psl].x = playerb.x +10
+			slash[psl].y = playerb.y
+		}
+		else {
+			slash[psl].x = playerb.x -10
+			slash[psl].y = playerb.y
+		}
+		if (kb.released("u")){
+			slash[psl].remove()
+		}
 	}
 
 	
