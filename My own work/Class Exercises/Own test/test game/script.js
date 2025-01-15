@@ -4,9 +4,10 @@ let floor;
 let bullet ;
 let slash ; 
 let slashing
+let health_point 
 
 function setup() {
-	new Canvas(500, 250);
+	new Canvas(750, 375);
 	world.gravity.y = 11;
 
 	playerb = new Sprite(100,100,25,20)
@@ -41,9 +42,16 @@ function setup() {
 
 	slash = new Group()
 	slash.w = 5
-	slash.l = 80
+	slash.h = 50
 	slash.collider = "n"
 	slash.offset.y = 30 
+	slash.color = "red"
+
+	health_point = new Group()
+	health_point.w = 2
+	health_point.h = 10
+	health_point.collider= "n"
+	health_point.color = "yellow"
 	
 
 
@@ -57,8 +65,8 @@ function setup() {
 		 "=...........=",
 		 "=...........=",
 		 "=...........=",
-		 "=...==......=",
-		 "=.=.........=",
+		 "=...........=",
+		 "=...........=",
 		 "============="],
 		 50,
 		 50,
@@ -73,6 +81,8 @@ function setup() {
 
 let doublejump = true ;
 let right = true ;
+let right_slash = true
+let health = 20 
 
 
 
@@ -185,21 +195,39 @@ function draw() {
 		slashing.y = playerb.y
 		slashing.life = 20
 		if (right === true){
-			slashing.x = playerb.x +10
-			slashing.rotation = 225
-			slashing.rotate(90,10)
+			if (playerl.colliding(floor)&&playerb.colliding(floor)){
+				slashing.x = playerb.x -10
+				slashing.rotation = 135
+				slashing.rotate(-90,10)
+				right_slash = false
+			}
+			else{
+				slashing.x = playerb.x +10
+				slashing.rotation = 225
+				slashing.rotate(90,10)
+				right_slash = true  
+			}
 		}
 		if (right === false){
-			slashing.x = playerb.x -10
-			slashing.rotation = 135
-			slashing.rotate(-90,10)
+			if (playerl.colliding(floor)&&playerb.colliding(floor)){
+				slashing.x = playerb.x +10
+				slashing.rotation = 225
+				slashing.rotate(90,10)
+				right_slash = true  
+			}
+			else{
+				slashing.x = playerb.x -10
+				slashing.rotation = 135
+				slashing.rotate(-90,10)
+				right_slash = false
+			}
 		}
 	}
 	for (let psl = 0 ; psl < slash.length ; psl++) {
 		if (psl>0){
 			slash[psl].remove()
 		}
-		if (right == true){
+		if (right_slash == true ){
 			slash[psl].x = playerb.x +10
 			slash[psl].y = playerb.y
 		}
@@ -212,14 +240,10 @@ function draw() {
 		}
 	}
 
-	
-
-
-
-	
 	camera.x = playerb.x;
 	camera.y = playerb.y;
 
+	health_point.amount = health
+
+
 }
-
-
