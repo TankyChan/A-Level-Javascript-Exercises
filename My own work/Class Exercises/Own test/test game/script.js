@@ -59,6 +59,7 @@ function setup() {
 	let enemy_s = new enemy.Sprite()
 	enemy_s.w = 25
 	enemy_s.h = 25
+
 	
 
 
@@ -93,9 +94,6 @@ let right = true ;
 let right_slash = true
 let health = 20 
 let gameover = false 
-
-
-
 
 function draw() {
 
