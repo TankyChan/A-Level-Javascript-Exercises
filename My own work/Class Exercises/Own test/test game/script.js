@@ -92,7 +92,7 @@ function setup() {
 let doublejump = true ;
 let right = true ;
 let right_slash = true
-let health = 20 
+let health = 25
 let gameover = false 
 
 function draw() {
@@ -282,9 +282,6 @@ function draw() {
 	}
 
 }
-
-
-
 
 }
 
