@@ -82,6 +82,8 @@ function setup() {
 		
 
 	)
+
+
 	player = new GlueJoint(playerb, playerl);
 
 }
@@ -91,21 +93,6 @@ let right = true ;
 let right_slash = true
 let health = 20 
 let gameover = false 
-
-function gameend() {
-	let gg = new Sprite
-	gg.w = 1
-	gg.h = 1
-	gg.textSize = 100
-	gg.text = "GAME OVER"
-	gg.collider = "n"
-	gg.textColor = "red"
-	gg.color = "black"
-	gg.x = camera.x
-	gg.y = camera.y
-	world.timeScale = 0
-}
-
 
 
 
@@ -281,10 +268,21 @@ function draw() {
 	else {
 		gameover = true
 	}
+
 }
 
+
 if (gameover == true ){
-	gameend()
+	let gg = new Sprite
+	gg.w = 1
+	gg.h = 1
+	gg.collider = "n"
+	gg.color = "black"
+	gg.textSize = 100
+	gg.x = camera.x
+	gg.y = camera.y
+	gg.text = "GAME OVER"
+	gg.textColor = "red"
 }
 
 }
