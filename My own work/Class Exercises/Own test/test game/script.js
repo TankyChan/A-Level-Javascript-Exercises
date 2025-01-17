@@ -5,6 +5,7 @@ let bullet ;
 let slash ; 
 let slashing
 let health_point 
+let enemy
 
 function setup() {
 	new Canvas(750, 375);
@@ -42,16 +43,22 @@ function setup() {
 
 	slash = new Group()
 	slash.w = 5
-	slash.h = 50
+	slash.h = 40
 	slash.collider = "n"
 	slash.offset.y = 30 
 	slash.color = "red"
 
 	health_point = new Group()
-	health_point.w = 2
-	health_point.h = 10
+	health_point.w = 15
+	health_point.h = 2
 	health_point.collider= "n"
 	health_point.color = "yellow"
+
+	enemy = new Group()
+
+	let enemy_s = new enemy.Sprite()
+	enemy_s.w = 25
+	enemy_s.h = 25
 	
 
 
@@ -83,6 +90,21 @@ let doublejump = true ;
 let right = true ;
 let right_slash = true
 let health = 20 
+let gameover = false 
+
+function gameend() {
+	let gg = new Sprite
+	gg.w = 1
+	gg.h = 1
+	gg.textSize = 100
+	gg.text = "GAME OVER"
+	gg.collider = "n"
+	gg.textColor = "red"
+	gg.color = "black"
+	gg.x = camera.x
+	gg.y = camera.y
+	world.timeScale = 0
+}
 
 
 
@@ -92,6 +114,7 @@ function draw() {
 
 	clear();
 	background(0)
+	if (gameover == false){
 	if (kb.pressing("a"))
 	{
 		right = false
@@ -243,7 +266,26 @@ function draw() {
 	camera.x = playerb.x;
 	camera.y = playerb.y;
 
+	if (playerl.collides(enemy)||playerb.collides(enemy)){
+		health -= 1
+	}
+	if (health > 0){
 	health_point.amount = health
+	health_point[0].x = camera.x - 350
+	health_point[0].y = camera.y - 50
+	for (let hp = 1 ; hp < health ; hp++){
+		health_point[hp].x = camera.x - 350
+		health_point[hp].y = health_point[0].y -4*hp
+	}
+	}
+	else {
+		gameover = true
+	}
+}
 
+if (gameover == true ){
+	gameend()
+}
 
 }
+
