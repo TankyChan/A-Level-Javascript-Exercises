@@ -248,6 +248,7 @@ function draw() {
 		}
 	}
 
+
 	camera.x = playerb.x;
 	camera.y = playerb.y;
 
@@ -267,21 +268,23 @@ function draw() {
 		gameover = true
 	}
 
+	if (gameover == true ){
+		let gg = new Sprite
+		gg.w = 1
+		gg.h = 1
+		gg.collider = "n"
+		gg.color = "black"
+		gg.textSize = 100
+		gg.x = camera.x
+		gg.y = camera.y
+		gg.text = "GAME OVER"
+		gg.textColor = "red"
+	}
+
 }
 
 
-if (gameover == true ){
-	let gg = new Sprite
-	gg.w = 1
-	gg.h = 1
-	gg.collider = "n"
-	gg.color = "black"
-	gg.textSize = 100
-	gg.x = camera.x
-	gg.y = camera.y
-	gg.text = "GAME OVER"
-	gg.textColor = "red"
-}
+
 
 }
 
