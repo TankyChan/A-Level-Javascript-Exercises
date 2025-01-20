@@ -6,6 +6,7 @@ let slash ;
 let slashing
 let health_point 
 let enemy
+let block
 
 function setup() {
 	new Canvas(750, 375);
@@ -25,7 +26,9 @@ function setup() {
 	playerl.bounciness = 0;
 	playerl.mass = 1
 
-	floor = new Group();
+	block = new Group()
+
+	floor = new block.Group();
 	floor.w = 50
 	floor.h = 50 
 	floor.tile= "="
@@ -65,7 +68,7 @@ function setup() {
 
 
 	new Tiles(
-		["=============",
+		[".............",
 		 "=...........=",
 		 "=...........=",
 		 "=...........=",
@@ -94,6 +97,7 @@ let right = true ;
 let right_slash = true
 let health = 25
 let gameover = false 
+
 
 function draw() {
 
@@ -188,7 +192,7 @@ function draw() {
 		}
 
 		for (let pbn = 0 ; pbn < pbullet.length ; pbn++) {
-			if (pbullet[pbn].overlaps(floor)||pbullet[pbn].x>playerb.x+300){
+			if (pbullet[pbn].overlaps(floor)||pbullet[pbn].x>playerb.x+300||pbullet[pbn].overlaps(enemy)){
 				pbullet[pbn].remove()
 				pbn -= 1
 			}
@@ -282,6 +286,18 @@ function draw() {
 	}
 
 }
+let furthest = 0
+let furthest_block = 0
+for (let block_num = 0 ; block_num < block.length ; block_num++){
+	if (block[block_num].x < camera.x - 500){
+		block[block_num].remove()
+	}
+	let block_dis = block[block_num].x - camera.x
+	if (block_dis>furthest){
+		furthest = block_dis
+		furthest_block = block_num 
+	}
+
 
 }
-
+}
