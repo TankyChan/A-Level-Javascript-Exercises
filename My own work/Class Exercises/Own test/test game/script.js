@@ -287,14 +287,17 @@ function draw() {
 
 }
 let furthest = 0
+let highest = 0
 let furthest_block = 0
 for (let block_num = 0 ; block_num < block.length ; block_num++){
 	if (block[block_num].x < camera.x - 500){
 		block[block_num].remove()
 	}
-	let block_dis = block[block_num].x - camera.x
-	if (block_dis>furthest){
-		furthest = block_dis
+	let block_xdis = block[block_num].x - camera.x
+	let block_ydis = block[block_num].y - camera.y
+	if (block_xdis>furthest&&block_ydis>highest){
+		furthest = block_xdis
+		highest = block_ydis
 		furthest_block = block_num 
 	}
 
