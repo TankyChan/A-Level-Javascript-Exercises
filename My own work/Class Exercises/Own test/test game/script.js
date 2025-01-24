@@ -295,8 +295,8 @@ function draw() {
 
 }
 
-for (let senemy_num = 0 ; senemy_num < enemy_s.length ; senemy_num++){
-	
+for (let enemy_s_num = 0 ; enemy_s_num < enemy_s.length ; enemy_s_num++){
+
 }
 
 }
