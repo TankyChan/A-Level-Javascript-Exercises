@@ -105,12 +105,16 @@ let right = true ;
 let right_slash = true
 let health = 25
 let gameover = false 
+let enemy_hp = []
+let LR = 0
 
 
 function draw() {
 
 	clear();
 	background(0)
+	camera.x = playerb.x;
+	camera.y = playerb.y;
 	if (gameover == false){
 	if (kb.pressing("a"))
 	{
@@ -200,7 +204,7 @@ function draw() {
 		}
 
 		for (let pbn = 0 ; pbn < pbullet.length ; pbn++) {
-			if (pbullet[pbn].overlaps(floor)||pbullet[pbn].x>playerb.x+300||pbullet[pbn].overlaps(enemy)){
+			if (pbullet[pbn].overlaps(floor)||pbullet[pbn].x>playerb.x+300||pbullet[pbn].overlaps(enemy)||pbullet[pbn].x<playerb.x-300){
 				pbullet[pbn].remove()
 				pbn -= 1
 			}
@@ -260,10 +264,6 @@ function draw() {
 		}
 	}
 
-
-	camera.x = playerb.x;
-	camera.y = playerb.y;
-
 	if (playerl.collides(enemy)||playerb.collides(enemy)){
 		health -= 1
 	}
@@ -295,9 +295,34 @@ function draw() {
 
 }
 
-for (let enemy_s_num = 0 ; enemy_s_num < enemy_s.length ; enemy_s_num++){
 
+for (let enemy_s_num = 0 ; enemy_s_num < enemy_s.length ; enemy_s_num++){
+	if (enemy_hp.length<enemy_s_num){
+		enemy_hp.push (3)
+	}
+	if (pbullet.overlaps(enemy_s[enemy_s_num])){
+		enemy_hp[enemy_s_num]=enemy_hp[enemy_s_num]-1
+		if (enemy_hp[enemy_s_num]<1){
+			enemy_s[enemy_s_num].remove()
+			enemy_hp.splice(index, 0)
+		}
+	}
+	LR = Math.floor(Math.random() * 1)
+	let enemy_dir = ""
+	if (LR === 0  ){
+		enemy_dir = "right"
+	}
+	else {
+		enemy_dir = "left"
+	}
+	if (enemy_s[enemy_s_num].colliding(floor)){
+		enemy_s[enemy_s_num].move(10,enemy_dir,0.5)
+	}
 }
+
+
+
+
 
 }
 
