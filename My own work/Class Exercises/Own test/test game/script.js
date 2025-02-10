@@ -63,7 +63,8 @@ function setup() {
 	enemy_s = new enemy.Group()
 	enemy_s.w = 25
 	enemy_s.h = 25
-	enemy_s.amount = 1
+	enemy_s.amount = 2
+	enemy_s.rotationLock =true
 
 	enemy_b = new enemy.Group()
 	enemy_b.diameter=10
@@ -106,7 +107,7 @@ let right_slash = true
 let health = 25
 let gameover = false 
 let enemy_hp = []
-let LR = 0
+let enemy_s_LR = []
 
 
 function draw() {
@@ -204,7 +205,7 @@ function draw() {
 		}
 
 		for (let pbn = 0 ; pbn < pbullet.length ; pbn++) {
-			if (pbullet[pbn].overlaps(floor)||pbullet[pbn].x>playerb.x+300||pbullet[pbn].overlaps(enemy)||pbullet[pbn].x<playerb.x-300){
+			if (pbullet[pbn].overlaps(floor)||pbullet[pbn].x>playerb.x+300||pbullet[pbn].x<playerb.x-300){
 				pbullet[pbn].remove()
 				pbn -= 1
 			}
@@ -295,28 +296,40 @@ function draw() {
 
 }
 
+if (enemy_hp.length<enemy_s.length){
+	enemy_hp.push (5)
+}
+if (enemy_s_LR.length<enemy_s.length){
+	enemy_s_LR.push (true)
+}
 
 for (let enemy_s_num = 0 ; enemy_s_num < enemy_s.length ; enemy_s_num++){
-	if (enemy_hp.length<enemy_s_num){
-		enemy_hp.push (3)
+	
+	if (slash.overlaps(enemy_s[enemy_s_num])){
+		enemy_hp[enemy_s_num] = enemy_hp[enemy_s_num]-2
 	}
-	if (pbullet.overlaps(enemy_s[enemy_s_num])){
-		enemy_hp[enemy_s_num]=enemy_hp[enemy_s_num]-1
-		if (enemy_hp[enemy_s_num]<1){
-			enemy_s[enemy_s_num].remove()
-			enemy_hp.splice(index, 0)
+	for (let pbn = 0 ; pbn < pbullet.length ; pbn++){
+		if(pbullet[pbn].overlaps(enemy)){
+			enemy_hp[enemy_s_num] = enemy_hp[enemy_s_num]-1
+			pbullet[pbn].remove()
 		}
 	}
-	LR = Math.floor(Math.random() * 1)
-	let enemy_dir = ""
-	if (LR === 0  ){
-		enemy_dir = "right"
+	if (enemy_hp[enemy_s_num]<1){
+		enemy_hp.splice(enemy_s_num,1)
+		enemy_s_LR.splice(enemy_s_num,1)
+		enemy_s[enemy_s_num].remove()
+
 	}
-	else {
-		enemy_dir = "left"
+	if (enemy_s.length>0){
+	if (enemy_s_LR[enemy_s_num] == true){
+		
+		enemy_s[enemy_s_num].vel.x = 5
+		enemy_s_LR[enemy_s_num] = false
 	}
-	if (enemy_s[enemy_s_num].colliding(floor)){
-		enemy_s[enemy_s_num].move(10,enemy_dir,0.5)
+	else{
+		enemy_s[enemy_s_num].vel.x = -5
+		enemy_s_LR[enemy_s_num] = true
+	}
 	}
 }
 
