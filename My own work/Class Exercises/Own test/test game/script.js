@@ -63,7 +63,7 @@ function setup() {
 	enemy_s = new enemy.Group()
 	enemy_s.w = 25
 	enemy_s.h = 25
-	enemy_s.amount = 2
+	enemy_s.amount = 1
 	enemy_s.rotationLock =true
 
 	enemy_b = new enemy.Group()
@@ -107,8 +107,6 @@ let right_slash = true
 let health = 25
 let gameover = false 
 let enemy_hp = []
-let enemy_s_LR = []
-
 
 function draw() {
 
@@ -299,9 +297,6 @@ function draw() {
 if (enemy_hp.length<enemy_s.length){
 	enemy_hp.push (5)
 }
-if (enemy_s_LR.length<enemy_s.length){
-	enemy_s_LR.push (true)
-}
 
 for (let enemy_s_num = 0 ; enemy_s_num < enemy_s.length ; enemy_s_num++){
 	
@@ -316,20 +311,18 @@ for (let enemy_s_num = 0 ; enemy_s_num < enemy_s.length ; enemy_s_num++){
 	}
 	if (enemy_hp[enemy_s_num]<1){
 		enemy_hp.splice(enemy_s_num,1)
-		enemy_s_LR.splice(enemy_s_num,1)
 		enemy_s[enemy_s_num].remove()
 
 	}
 	if (enemy_s.length>0){
-	if (enemy_s_LR[enemy_s_num] == true){
-		
-		enemy_s[enemy_s_num].vel.x = 5
-		enemy_s_LR[enemy_s_num] = false
-	}
-	else{
-		enemy_s[enemy_s_num].vel.x = -5
-		enemy_s_LR[enemy_s_num] = true
-	}
+		if (enemy_s[enemy_s_num].vel.x < 1||enemy_s[enemy_s_num].vel.x > 5){
+			enemy_s[enemy_s_num].vel.x = 0
+			enemy_s[enemy_s_num].vel.x -= 1
+		}
+		else if (enemy_s[enemy_s_num].vel.x > -1||enemy_s[enemy_s_num].vel.x < -5){
+			enemy_s[enemy_s_num].vel.x = 0
+			enemy_s[enemy_s_num].vel.x += 1
+		} 
 	}
 }
 
