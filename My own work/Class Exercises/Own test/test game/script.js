@@ -263,7 +263,7 @@ function draw() {
 		}
 	}
 
-	if (playerl.collides(enemy)||playerb.collides(enemy)){
+	if (playerl.collides(enemy)||playerb.collides(enemy)||enemy_b.overlaps(playerb)||enemy_b.overlaps(playerl)){
 		health -= 1
 	}
 	if (health > 0){
@@ -315,15 +315,19 @@ for (let enemy_s_num = 0 ; enemy_s_num < enemy_s.length ; enemy_s_num++){
 
 	}
 	if (enemy_s.length>0){
-		if (enemy_s[enemy_s_num].vel.x < 1||enemy_s[enemy_s_num].vel.x > 5){
-			enemy_s[enemy_s_num].vel.x = 0
-			enemy_s[enemy_s_num].vel.x -= 1
+		if ((playerb.x-enemy_s[enemy_s_num].x)>100||(playerb.x-enemy_s[enemy_s_num].x)<-100){
+			enemy_s[enemy_s_num].vel.x = 2*Math.cos(frameCount*0.05)
 		}
-		else if (enemy_s[enemy_s_num].vel.x > -1||enemy_s[enemy_s_num].vel.x < -5){
-			enemy_s[enemy_s_num].vel.x = 0
-			enemy_s[enemy_s_num].vel.x += 1
-		} 
+		else{
+			let eb = new enemy_b.Sprite()
+			if ((playerb.x-enemy_s[enemy_s_num].x)<100&&(playerb.x-enemy_s[enemy_s_num].x)>0){
+				eb.direction = 0
+				eb.x = enemy_s[enemy_s_num].x + 10
+				eb.y = enemy_s[enemy_s_num].y
+			}
+		}
 	}
+	
 }
 
 
