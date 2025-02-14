@@ -320,10 +320,20 @@ for (let enemy_s_num = 0 ; enemy_s_num < enemy_s.length ; enemy_s_num++){
 		}
 		else{
 			let eb = new enemy_b.Sprite()
-			if ((playerb.x-enemy_s[enemy_s_num].x)<100&&(playerb.x-enemy_s[enemy_s_num].x)>0){
-				eb.direction = 0
-				eb.x = enemy_s[enemy_s_num].x + 10
-				eb.y = enemy_s[enemy_s_num].y
+
+			for (let ebn = 0 ; ebn < enemy_b.length ; ebn++) {
+				if ((playerb.x-enemy_s[enemy_s_num].x)<100&&(playerb.x-enemy_s[enemy_s_num].x)>0){
+					eb.direction = 0
+					eb.x = enemy_s[enemy_s_num].x + 10
+					eb.y = enemy_s[enemy_s_num].y
+				}
+				if (enemy_b[ebn].overlaps(floor)||enemy_b[ebn].overlaps(playerb)||(enemy_b[ebn].x-camera.x)>400){
+					enemy_b[ebn].remove()
+					ebn -= 1
+				}
+				if (ebn>3){
+					enemy_b[ebn].remove()
+				}
 			}
 		}
 	}
