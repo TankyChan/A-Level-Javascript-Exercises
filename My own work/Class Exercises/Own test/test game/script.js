@@ -107,7 +107,6 @@ let right_slash = true
 let health = 25
 let gameover = false 
 let enemy_hp = []
-let damaged = false
 let last_hit_frame = -480
 let last_eb_frame = -1000
 
@@ -297,7 +296,7 @@ function draw() {
 		gg.textColor = "red"
 	}
 
-}
+
 
 if (enemy_hp.length<enemy_s.length){
 	enemy_hp.push (5)
@@ -358,6 +357,9 @@ for (let enemy_s_num = 0 ; enemy_s_num < enemy_s.length ; enemy_s_num++){
 	}
 	
 }
+}}
+else{
+	
 }
 }
 
