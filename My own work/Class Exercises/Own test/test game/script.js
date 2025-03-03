@@ -7,19 +7,43 @@ let slashing
 let health_point 
 let enemy,enemy_s,enemy_b
 let block
+let player
+let button, start
 
-function setup() {
+function setup(){
 	new Canvas(750, 375);
 	world.gravity.y = 11;
+}
 
-	playerb = new Sprite(100,100,25,20)
+
+let doublejump = true ;
+let right = true ;
+let right_slash = true
+let health = 25
+let gameover = true 
+let enemy_hp = []
+let last_hit_frame = -480
+let last_eb_frame = -1000
+let gameover_frame = -100
+let settedup = false
+
+function setting_up() {
+	player = new Group()
+
+	playerb = new player.Sprite()
+	playerb.w = 25
+	playerb.h =20
 	playerb.color = "red"
 	playerb.rotationLock=true;
 	playerb.drag = 0;
 	playerb.bounciness = 0;
 	playerb.mass = 2
+	playerb.x = 100
+	playerb.y = 100
 
-	playerl = new Sprite(100,112.5,25,5)
+	playerl = new player.Sprite(playerb.x,playerb.y+10.5)
+	playerl.w = 25
+	playerl.h = 5
 	playerl.color = "red"
 	playerl.rotationLock=true;
 	playerl.drag = 0;
@@ -38,20 +62,20 @@ function setup() {
 	floor.bounciness = 0.1;
 
 
-	pbullet = new Group()
+	pbullet = new player.Group()
 	pbullet.diameter=10
 	pbullet.color = "red"
 	pbullet.collider = "none"
 	pbullet.speed = 7
 
-	slash = new Group()
+	slash = new player.Group()
 	slash.w = 5
 	slash.h = 40
 	slash.collider = "n"
 	slash.offset.y = 30 
 	slash.color = "red"
 
-	health_point = new Group()
+	health_point = new player.Group()
 	health_point.w = 15
 	health_point.h = 2
 	health_point.collider= "n"
@@ -71,10 +95,12 @@ function setup() {
 	enemy_b.collider = "none"
 	enemy_b.speed = 5
 	
+	button = new Group()
+	button.collider = 'n'
 
+	start = new button.Sprite()
 	
-
-
+	player = new GlueJoint(playerb, playerl);
 
 	new Tiles(
 		[".............",
@@ -92,31 +118,35 @@ function setup() {
 		 50,
 		 floor.w,
 		 floor.h,
-		
-
 	)
-
-
-	player = new GlueJoint(playerb, playerl);
-
+	settedup = true
 }
-
-let doublejump = true ;
-let right = true ;
-let right_slash = true
-let health = 25
-let gameover = false 
-let enemy_hp = []
-let last_hit_frame = -480
-let last_eb_frame = -1000
 
 function draw() {
 	frameRate(60)
 	clear();
 	background(0)
-	camera.x = playerb.x;
-	camera.y = playerb.y;
-	if (gameover == false){
+	if (gameover == true){
+		menu()
+	}
+	else{
+		if (settedup == false){
+			setting_up()
+			player.autoUpdate = true 
+			enemy.autoUpdate = true
+		}
+		if (settedup == true){
+			game()
+		}
+	}
+}
+
+
+function game() {
+		button.autoUpdate = false
+		button.remove()
+		camera.x = playerb.x;
+		camera.y = playerb.y;
 	if (kb.pressing("a"))
 	{
 		right = false
@@ -265,7 +295,7 @@ function draw() {
 		}
 	}
 
-	if ((playerl.collides(enemy)||playerb.collides(enemy)||enemy_b.overlaps(playerb)||enemy_b.overlaps(playerl))&&(frameCount - last_hit_frame)>60){
+	if ((playerl.collides(enemy)||playerb.collides(enemy)||enemy_b.overlaps(playerb)||enemy_b.overlaps(playerl))&&(frameCount - last_hit_frame)>0){
 		health -= 1
 		last_hit_frame = frameCount
 	}
@@ -280,10 +310,6 @@ function draw() {
 	}
 	}
 	else {
-		gameover = true
-	}
-
-	if (gameover == true){
 		let gg = new Sprite
 		gg.w = 1
 		gg.h = 1
@@ -294,9 +320,9 @@ function draw() {
 		gg.y = camera.y
 		gg.text = "GAME OVER"
 		gg.textColor = "red"
+		gameover_frame = frameCount
+		gameover = true
 	}
-
-
 
 if (enemy_hp.length<enemy_s.length){
 	enemy_hp.push (5)
@@ -358,8 +384,18 @@ for (let enemy_s_num = 0 ; enemy_s_num < enemy_s.length ; enemy_s_num++){
 	
 }
 }}
-else{
-	
-}
+
+function menu() {
+	player.remove()
+	enemy.remove()
+	block.remove()
+	health_point.remove()
+	player.autoUpdate = false 
+	enemy.autoUpdate =false
+	if ((frameCount-gameover_frame)>60){
+		gg.remove()
+		settedup = false
+		gameover = false
+	}
 }
 
