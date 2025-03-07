@@ -34,6 +34,7 @@ let settedup = false
 let menu_setted = false
 
 function setting_up() {
+	world.gravity.y = 11;
 	player = new Group()
 
 	playerb = new player.Sprite()
@@ -394,8 +395,8 @@ for (let enemy_s_num = 0 ; enemy_s_num < enemy_s.length ; enemy_s_num++){
 }}
 
 function menu_setup(){
+	world.gravity.y = 0;
 	button = new Group()
-	button.collider = "n"
 
 	start = new button.Sprite()
 	start.w = 150
@@ -403,11 +404,16 @@ function menu_setup(){
 	start.x = camera.x
 	start.y = camera.y+100
 	start.color = "green"
-
-	
 }
 
 function menu() {
 	start.color = "green"
-	if (start.mouse.pressing()) start.color = "red" ;
+	if (start.mouse.pressing()) {
+		start.color = "red" 
+		gameover = false
+		settedup = false
+		menu_setted = false
+		button.remove()
+		gg.remove()
+	}
 }
