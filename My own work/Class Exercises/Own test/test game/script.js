@@ -9,10 +9,15 @@ let enemy,enemy_s,enemy_b
 let block
 let player
 let button, start
+let gg
 
 function setup(){
 	new Canvas(750, 375);
 	world.gravity.y = 11;
+	player = new Group()
+	block = new Group()
+	floor = new block.Group();
+	enemy = new Group()
 }
 
 
@@ -20,12 +25,13 @@ let doublejump = true ;
 let right = true ;
 let right_slash = true
 let health = 25
-let gameover = true 
+let gameover = false 
 let enemy_hp = []
 let last_hit_frame = -480
 let last_eb_frame = -1000
 let gameover_frame = -100
 let settedup = false
+let menu_setted = false
 
 function setting_up() {
 	player = new Group()
@@ -95,12 +101,8 @@ function setting_up() {
 	enemy_b.collider = "none"
 	enemy_b.speed = 5
 	
-	button = new Group()
-	button.collider = 'n'
-
-	start = new button.Sprite()
 	
-	player = new GlueJoint(playerb, playerl);
+	let player_g = new GlueJoint(playerb, playerl);
 
 	new Tiles(
 		[".............",
@@ -119,7 +121,6 @@ function setting_up() {
 		 floor.w,
 		 floor.h,
 	)
-	settedup = true
 }
 
 function draw() {
@@ -127,15 +128,21 @@ function draw() {
 	clear();
 	background(0)
 	if (gameover == true){
-		menu()
+		if (menu_setted == false){
+			menu_setup()
+			menu_setted = true
+		}
+		else{
+			menu()
+		}
 	}
-	else{
+
+	if (gameover==false){
 		if (settedup == false){
 			setting_up()
-			player.autoUpdate = true 
-			enemy.autoUpdate = true
+			settedup = true
 		}
-		if (settedup == true){
+		else if (settedup == true){
 			game()
 		}
 	}
@@ -143,10 +150,8 @@ function draw() {
 
 
 function game() {
-		button.autoUpdate = false
-		button.remove()
-		camera.x = playerb.x;
-		camera.y = playerb.y;
+	camera.x = playerb.x;
+	camera.y = playerb.y;
 	if (kb.pressing("a"))
 	{
 		right = false
@@ -310,7 +315,7 @@ function game() {
 	}
 	}
 	else {
-		let gg = new Sprite
+		gg = new Sprite
 		gg.w = 1
 		gg.h = 1
 		gg.collider = "n"
@@ -322,6 +327,9 @@ function game() {
 		gg.textColor = "red"
 		gameover_frame = frameCount
 		gameover = true
+		player.remove()
+		enemy.remove()
+		block.remove()
 	}
 
 if (enemy_hp.length<enemy_s.length){
@@ -385,17 +393,21 @@ for (let enemy_s_num = 0 ; enemy_s_num < enemy_s.length ; enemy_s_num++){
 }
 }}
 
-function menu() {
-	player.remove()
-	enemy.remove()
-	block.remove()
-	health_point.remove()
-	player.autoUpdate = false 
-	enemy.autoUpdate =false
-	if ((frameCount-gameover_frame)>60){
-		gg.remove()
-		settedup = false
-		gameover = false
-	}
+function menu_setup(){
+	button = new Group()
+	button.collider = "n"
+
+	start = new button.Sprite()
+	start.w = 150
+	start.h = 75
+	start.x = camera.x
+	start.y = camera.y+100
+	start.color = "green"
+
+	
 }
 
+function menu() {
+	start.color = "green"
+	if (start.mouse.pressing()) start.color = "red" ;
+}
