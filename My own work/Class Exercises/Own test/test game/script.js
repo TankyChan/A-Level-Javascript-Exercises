@@ -1,8 +1,8 @@
-let playerl;
-let playerb ;
-let floor;
-let bullet ;
-let slash ; 
+let playerl
+let playerb 
+let floor
+let bullet 
+let slash 
 let slashing
 let health_point 
 let enemy,enemy_s,enemy_b
@@ -11,39 +11,47 @@ let player
 let button, start
 let gg
 
+let doublejump = true 
+let right = true 
+let right_slash = true
+let gameover = false 
+let health = 25
+let enemy_hp = []
+let last_eb_frame = []
+let last_hit_frame = -480
+let settedup = false
+let menu_setted = false
+
 function setup(){
 	new Canvas(750, 375);
 	world.gravity.y = 11;
 	player = new Group()
 	block = new Group()
-	floor = new block.Group();
+	floor = new block.Group()
+	button = new Group()
+	gg = new Sprite()
 	enemy = new Group()
+	enemy_s = new enemy.Group()
+	
 }
 
-
-let doublejump = true ;
-let right = true ;
-let right_slash = true
-let health = 25
-let gameover = false 
-let enemy_hp = []
-let last_hit_frame = -480
-let last_eb_frame = -1000
-let gameover_frame = -100
-let settedup = false
-let menu_setted = false
-
 function setting_up() {
+	button.remove()
+	gg.remove()
 	world.gravity.y = 11;
-	player = new Group()
+	health = 25
+	enemy_hp = []
+	last_eb_frame = []
+
+	
 
 	playerb = new player.Sprite()
 	playerb.w = 25
 	playerb.h =20
 	playerb.color = "red"
-	playerb.rotationLock=true;
+	playerb.rotationLock=true
 	playerb.drag = 0;
-	playerb.bounciness = 0;
+	playerb.bounciness = 0
 	playerb.mass = 2
 	playerb.x = 100
 	playerb.y = 100
@@ -52,14 +60,12 @@ function setting_up() {
 	playerl.w = 25
 	playerl.h = 5
 	playerl.color = "red"
-	playerl.rotationLock=true;
-	playerl.drag = 0;
-	playerl.bounciness = 0;
+	playerl.rotationLock=true
+	playerl.drag = 0
+	playerl.bounciness = 0
 	playerl.mass = 1
 
-	block = new Group()
 
-	floor = new block.Group();
 	floor.w = 50
 	floor.h = 50 
 	floor.tile= "="
@@ -88,14 +94,12 @@ function setting_up() {
 	health_point.collider= "n"
 	health_point.color = "yellow"
 
-	enemy = new Group()
 	enemy.color ="purple"
 
-	enemy_s = new enemy.Group()
 	enemy_s.w = 25
 	enemy_s.h = 25
-	enemy_s.amount = 1
 	enemy_s.rotationLock =true
+	enemy_s.tile = "e"
 
 	enemy_b = new enemy.Group()
 	enemy_b.diameter=10
@@ -106,22 +110,24 @@ function setting_up() {
 	let player_g = new GlueJoint(playerb, playerl);
 
 	new Tiles(
-		[".............",
-		 "=...........=",
-		 "=...........=",
-		 "=...........=",
-		 "=...........=",
-		 "=...........=",
-		 "=...........=",
-		 "=...........=",
-		 "=...........=",
-		 "=...........=",
-		 "============="],
+		["...................",
+		 "=.................=",
+		 "=.................=",
+		 "=.................=",
+		 "=.................=",
+		 "=.................=",
+		 "=.................=",
+		 "=.................=",
+		 "=.................=",
+		 "=.....e..e...e....=",
+		 "==================="],
 		 50,
 		 50,
 		 floor.w,
 		 floor.h,
 	)
+
+	settedup = true
 }
 
 function draw() {
@@ -141,7 +147,6 @@ function draw() {
 	if (gameover==false){
 		if (settedup == false){
 			setting_up()
-			settedup = true
 		}
 		else if (settedup == true){
 			game()
@@ -316,6 +321,7 @@ function game() {
 	}
 	}
 	else {
+		allSprites.remove()
 		gg = new Sprite
 		gg.w = 1
 		gg.h = 1
@@ -326,15 +332,12 @@ function game() {
 		gg.y = camera.y
 		gg.text = "GAME OVER"
 		gg.textColor = "red"
-		gameover_frame = frameCount
 		gameover = true
-		player.remove()
-		enemy.remove()
-		block.remove()
 	}
 
 if (enemy_hp.length<enemy_s.length){
 	enemy_hp.push (5)
+	last_eb_frame.push (-100)
 }
 
 for (let enemy_s_num = 0 ; enemy_s_num < enemy_s.length ; enemy_s_num++){
@@ -350,6 +353,7 @@ for (let enemy_s_num = 0 ; enemy_s_num < enemy_s.length ; enemy_s_num++){
 	}
 	if (enemy_hp[enemy_s_num]<1){
 		enemy_hp.splice(enemy_s_num,1)
+		last_eb_frame.splice(enemy_s_num,1)
 		enemy_s[enemy_s_num].remove()
 
 	}
@@ -360,14 +364,14 @@ for (let enemy_s_num = 0 ; enemy_s_num < enemy_s.length ; enemy_s_num++){
 		else{
 			
 			
-			if ((frameCount-last_eb_frame)>60){
+			if ((frameCount-last_eb_frame[enemy_s_num])>60){
 			let eb = new enemy_b.Sprite()
-			if ((playerb.x-enemy_s[enemy_s_num].x)<100&&(playerb.x-enemy_s[enemy_s_num].x)>0){
+			if ((playerb.x-enemy_s[enemy_s_num].x)<400&&(playerb.x-enemy_s[enemy_s_num].x)>0){
 				eb.direction = 0
 				eb.x = enemy_s[enemy_s_num].x + 10
 				eb.y = enemy_s[enemy_s_num].y
 			}
-			if ((playerb.x-enemy_s[enemy_s_num].x)>-100&&(playerb.x-enemy_s[enemy_s_num].x)<0){
+			if ((playerb.x-enemy_s[enemy_s_num].x)>-400&&(playerb.x-enemy_s[enemy_s_num].x)<0){
 				eb.direction = 180
 				eb.x = enemy_s[enemy_s_num].x - 10
 				eb.y = enemy_s[enemy_s_num].y
@@ -386,7 +390,7 @@ for (let enemy_s_num = 0 ; enemy_s_num < enemy_s.length ; enemy_s_num++){
 				if (ebn>3){
 					enemy_b[ebn].remove()
 					ebn -= 1
-					last_eb_frame = frameCount
+					last_eb_frame[enemy_s_num] = frameCount
 				}
 			}
 	}
@@ -407,13 +411,10 @@ function menu_setup(){
 }
 
 function menu() {
-	start.color = "green"
 	if (start.mouse.pressing()) {
 		start.color = "red" 
 		gameover = false
 		settedup = false
 		menu_setted = false
-		button.remove()
-		gg.remove()
 	}
 }
