@@ -136,13 +136,14 @@ function draw() {
 	background(0)
 	if (gameover == true){
 		if (menu_setted == false){
-			menu_setup()
+			restart_menu_setup()
 			menu_setted = true
 		}
 		else{
-			menu()
+			restart_menu()
 		}
 	}
+
 
 	if (gameover==false){
 		if (settedup == false){
@@ -359,7 +360,7 @@ for (let enemy_s_num = 0 ; enemy_s_num < enemy_s.length ; enemy_s_num++){
 	}
 	if (enemy_s.length>0){
 		if ((playerb.x-enemy_s[enemy_s_num].x)>100||(playerb.x-enemy_s[enemy_s_num].x)<-100){
-			enemy_s[enemy_s_num].vel.x = 2*Math.cos(frameCount*0.05)
+			enemy_s[enemy_s_num].vel.x = 2*Math.cos((frameCount-60*enemy_s_num)*0.05)
 		}
 		else{
 			
@@ -398,23 +399,40 @@ for (let enemy_s_num = 0 ; enemy_s_num < enemy_s.length ; enemy_s_num++){
 }
 }}
 
-function menu_setup(){
+function restart_menu_setup(){
 	world.gravity.y = 0;
-	button = new Group()
 
-	start = new button.Sprite()
-	start.w = 150
-	start.h = 75
-	start.x = camera.x
-	start.y = camera.y+100
-	start.color = "green"
+	restart = new button.Sprite()
+	restart.w = 150
+	restart.h = 75
+	restart.x = camera.x
+	restart.y = camera.y+100
+	restart.color = "green"
+	restart.textSize = 30
+	restart.text = "back to \nmenu"
 }
 
-function menu() {
-	if (start.mouse.pressing()) {
-		start.color = "red" 
-		gameover = false
-		settedup = false
-		menu_setted = false
+function restart_menu() {
+	if (restart.mouse.released()) {
+		gg.remove()
+		restart.remove()
+		button = new Group()
+	
+		start = new button.Sprite()
+		start.w = 150
+		start.h = 50
+		start.x = camera.x
+		start.y = camera.y-100
+		start.color = "#E1E360"
+	
+		if (start.mouse.presses()) {
+			gameover = false
+			settedup = false
+		}
 	}
+}
+
+function menu_setup(){
+
+
 }
