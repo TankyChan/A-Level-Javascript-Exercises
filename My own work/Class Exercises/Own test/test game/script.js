@@ -20,6 +20,8 @@ let enemy_hp = []
 let last_eb_frame = []
 let last_hit_frame = -480
 let settedup = false
+let restart_menu_setted = false
+let game_start = false
 let menu_setted = false
 
 function setup(){
@@ -36,7 +38,6 @@ function setup(){
 }
 
 function setting_up() {
-	button.remove()
 	gg.remove()
 	world.gravity.y = 11;
 	health = 25
@@ -135,22 +136,33 @@ function draw() {
 	clear();
 	background(0)
 	if (gameover == true){
-		if (menu_setted == false){
+		if (restart_menu_setted == false){
 			restart_menu_setup()
-			menu_setted = true
+			restart_menu_setted = true
+			menu_setted = false
 		}
 		else{
 			restart_menu()
 		}
 	}
-
-
-	if (gameover==false){
-		if (settedup == false){
-			setting_up()
+	else{
+		if (game_start == false){
+			if (menu_setted==false){
+				menu_setup()
+				menu_setted = true
+			}
+			else{
+				menu()
+			}
 		}
-		else if (settedup == true){
-			game()
+		else{
+		
+			if (settedup == false){
+				setting_up()
+			}
+			else{
+				game()
+			}
 		}
 	}
 }
@@ -417,22 +429,31 @@ function restart_menu() {
 		gg.remove()
 		restart.remove()
 		button = new Group()
-	
-		start = new button.Sprite()
-		start.w = 150
-		start.h = 50
-		start.x = camera.x
-		start.y = camera.y-100
-		start.color = "#E1E360"
-	
-		if (start.mouse.presses()) {
-			gameover = false
-			settedup = false
-		}
+		gameover = false
+		game_start = false
 	}
 }
 
 function menu_setup(){
+	world.gravity.y = 0;
 
+	start = new button.Sprite()
+	start.w = 150
+	start.h = 75
+	start.x = camera.x
+	start.y = camera.y+100
+	start.color = "green"
+	start.textSize = 30
+	start.text = "start"
+	
 
+}
+
+function menu(){
+	if (start.mouse.released()) {
+		start.remove()
+		gameover = false
+		game_start = true
+		settedup = false
+	}
 }
