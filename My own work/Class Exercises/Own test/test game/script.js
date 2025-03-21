@@ -8,7 +8,7 @@ let health_point
 let enemy,enemy_s,enemy_b
 let block
 let player
-let button, start
+let button, start, restart
 let gg
 
 let doublejump = true 
@@ -159,6 +159,7 @@ function draw() {
 		
 			if (settedup == false){
 				setting_up()
+				restart_menu_setted = false
 			}
 			else{
 				game()
@@ -335,6 +336,7 @@ function game() {
 	}
 	else {
 		allSprites.remove()
+
 		gg = new Sprite
 		gg.w = 1
 		gg.h = 1
@@ -345,6 +347,7 @@ function game() {
 		gg.y = camera.y
 		gg.text = "GAME OVER"
 		gg.textColor = "red"
+
 		gameover = true
 	}
 
@@ -414,6 +417,7 @@ for (let enemy_s_num = 0 ; enemy_s_num < enemy_s.length ; enemy_s_num++){
 function restart_menu_setup(){
 	world.gravity.y = 0;
 
+
 	restart = new button.Sprite()
 	restart.w = 150
 	restart.h = 75
@@ -436,6 +440,7 @@ function restart_menu() {
 
 function menu_setup(){
 	world.gravity.y = 0;
+
 
 	start = new button.Sprite()
 	start.w = 150
