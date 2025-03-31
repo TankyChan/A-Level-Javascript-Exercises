@@ -10,6 +10,7 @@ let block
 let player
 let button, start, restart
 let gg
+let level_button
 
 let doublejump = true 
 let right = true 
@@ -34,11 +35,12 @@ function setup(){
 	gg = new Sprite()
 	enemy = new Group()
 	enemy_s = new enemy.Group()
+	level_button = new Group()
 	
 }
 
 function setting_up() {
-	gg.remove()
+	allSprites.remove()
 	world.gravity.y = 11;
 	health = 25
 	enemy_hp = []
@@ -439,6 +441,7 @@ function restart_menu() {
 }
 
 function menu_setup(){
+	allSprites.remove()
 	world.gravity.y = 0;
 
 
@@ -450,15 +453,32 @@ function menu_setup(){
 	start.color = "green"
 	start.textSize = 30
 	start.text = "start"
-	
 
 }
 
 function menu(){
 	if (start.mouse.released()) {
 		start.remove()
-		gameover = false
-		game_start = true
+		level_button.w = 75
+		level_button.h = 75
+		level_button.amount = 6
+		for (let level_num = 0 ; level_num<level_button.length;level_num+=1){
+			level_button[level_num].text = level_num+1
+			if (level_num<3){
+				level_button[level_num].y = camera.y - 50
+				level_button[level_num].x = camera.x + 80*(level_num-1)
+			}
+			else if (level_num<6){
+				level_button[level_num].y = camera.y + 50
+				level_button[level_num].x = camera.x + 80*(level_num-4)
+			}
+		}
+		
+	}
+	if (level_button.mouse.released()){
+		gameover = false 
+		game_start = true 
 		settedup = false
 	}
+
 }
