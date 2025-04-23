@@ -24,6 +24,24 @@ let settedup = false
 let restart_menu_setted = false
 let game_start = false
 let menu_setted = false
+let choose_level = false
+
+let levels = [[	["...................",
+				"=.................=",
+				"=.................=",
+				"=.................=",
+				"=.................=",
+				"=.................=",
+				"=.................=",
+				"=.................=",
+				"=.................=",
+				"=.....e..e...e....=",
+				"==================="],
+				50,
+				50,
+				floor.w,
+				floor.h,],[]
+]
 
 function setup(){
 	new Canvas(750, 375);
@@ -112,23 +130,7 @@ function setting_up() {
 	
 	let player_g = new GlueJoint(playerb, playerl);
 
-	new Tiles(
-		["...................",
-		 "=.................=",
-		 "=.................=",
-		 "=.................=",
-		 "=.................=",
-		 "=.................=",
-		 "=.................=",
-		 "=.................=",
-		 "=.................=",
-		 "=.....e..e...e....=",
-		 "==================="],
-		 50,
-		 50,
-		 floor.w,
-		 floor.h,
-	)
+	new Tiles(levels[0])
 
 	settedup = true
 }
@@ -473,12 +475,15 @@ function menu(){
 				level_button[level_num].x = camera.x + 80*(level_num-4)
 			}
 		}
-		
+		choose_level = true
 	}
-	if (level_button.mouse.released()){
+	if (choose_level == true){
+	if (level_button[0].mouse.released()){
 		gameover = false 
 		game_start = true 
 		settedup = false
-	}
+		choose_level = false
+	}}
+
 
 }
