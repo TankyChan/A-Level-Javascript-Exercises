@@ -22,13 +22,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function studentSearch(array, target) {
         let index = 0;
-        while (index < array.______) {
-            if (array[_____] === target) {
-                return _____;
+        while (index < array.length) {
+            if (array[index] === target) {
+                return index;
             }
             index++;
         }
-        return _____;
+        return index;
     }
     
 
