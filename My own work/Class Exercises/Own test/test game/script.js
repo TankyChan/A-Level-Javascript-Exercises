@@ -25,8 +25,9 @@ let restart_menu_setted = false
 let game_start = false
 let menu_setted = false
 let choose_level = false
+let last_slash_frame = -480
 
-let levels = [[	["...................",
+let levels = [	["...................",
 				"=.................=",
 				"=.................=",
 				"=.................=",
@@ -37,10 +38,7 @@ let levels = [[	["...................",
 				"=.................=",
 				"=.....e..e...e....=",
 				"==================="],
-				50,
-				50,
-				floor.w,
-				floor.h,],[]
+			  ,[]
 ]
 
 function setup(){
@@ -130,7 +128,12 @@ function setting_up() {
 	
 	let player_g = new GlueJoint(playerb, playerl);
 
-	new Tiles(levels[0])
+	new Tiles(levels[0],
+		50,
+		50,
+		floor.w,
+		floor.h,
+	)
 
 	settedup = true
 }
@@ -274,36 +277,38 @@ function game() {
 	
 
 	if (kb.presses("u")){
-		let slashing = new slash.Sprite()
-		slashing.offset.y = 30 
-		slashing.y = playerb.y
-		slashing.life = 20
-		if (right === true){
-			if (playerl.colliding(floor)&&playerb.colliding(floor)){
-				slashing.x = playerb.x -10
-				slashing.rotation = 135
-				slashing.rotate(-90,10)
-				right_slash = false
+		if ((frameCount-last_slash_frame)>25){
+			let slashing = new slash.Sprite()
+			slashing.offset.y = 30 
+			slashing.y = playerb.y
+			last_slash_frame = frameCount
+			if (right === true){
+				if (playerl.colliding(floor)&&playerb.colliding(floor)){
+					slashing.x = playerb.x -10
+					slashing.rotation = 135
+					slashing.rotate(-90,10)
+					right_slash = false
+				}
+				else{
+					slashing.x = playerb.x +10
+					slashing.rotation = 225
+					slashing.rotate(90,10)
+					right_slash = true  
+				}
 			}
-			else{
-				slashing.x = playerb.x +10
-				slashing.rotation = 225
-				slashing.rotate(90,10)
-				right_slash = true  
-			}
-		}
-		if (right === false){
-			if (playerl.colliding(floor)&&playerb.colliding(floor)){
-				slashing.x = playerb.x +10
-				slashing.rotation = 225
-				slashing.rotate(90,10)
-				right_slash = true  
-			}
-			else{
-				slashing.x = playerb.x -10
-				slashing.rotation = 135
-				slashing.rotate(-90,10)
-				right_slash = false
+			if (right === false){
+				if (playerl.colliding(floor)&&playerb.colliding(floor)){
+					slashing.x = playerb.x +10
+					slashing.rotation = 225
+					slashing.rotate(90,10)
+					right_slash = true  
+				}
+				else{
+					slashing.x = playerb.x -10
+					slashing.rotation = 135
+					slashing.rotate(-90,10)
+					right_slash = false
+				}
 			}
 		}
 	}
