@@ -186,7 +186,7 @@ function game() {
 			playerb.vel.x = -4.5 ;
 		}
 		if (kb.presses("o")&&playerl.colliding(floor)){
-			playerb.vel.x = -7
+			playerb.vel.x = -8
 		}
 		if (playerb.colliding(floor)&&playerb.colliding(floor)){
 			playerb.y += 1
@@ -200,7 +200,7 @@ function game() {
 			playerb.vel.x = 4.5 ;
 		}
 		if (kb.presses("o")&&playerl.colliding(floor)){
-			playerb.vel.x = 7
+			playerb.vel.x = 8
 		} 
 		if (playerb.colliding(floor)&&playerb.colliding(floor)){
 			playerl.y += 1
@@ -277,7 +277,7 @@ function game() {
 	
 
 	if (kb.presses("u")){
-		if ((frameCount-last_slash_frame)>25){
+		if ((frameCount-last_slash_frame)>30){
 			let slashing = new slash.Sprite()
 			slashing.offset.y = 30 
 			slashing.y = playerb.y
