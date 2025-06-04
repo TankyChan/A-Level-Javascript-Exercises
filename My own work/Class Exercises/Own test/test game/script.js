@@ -329,9 +329,14 @@ function game() {
 		}
 	}
 
-	if ((playerl.collides(enemy)||playerb.collides(enemy)||enemy_b.overlaps(playerb)||enemy_b.overlaps(playerl))&&(frameCount - last_hit_frame)>0){
+	if ((playerl.collides(enemy)||playerb.collides(enemy)||enemy_b.overlaps(playerb)||enemy_b.overlaps(playerl))&&(frameCount - last_hit_frame)>90){
 		health -= 1
 		last_hit_frame = frameCount
+		if (playerb.x>enemy.x){
+			if (frameCount-last_hit_frame<30){
+				playerb.vel.x = 5
+			}
+		}
 	}
 	
 	if (health > 0){
@@ -395,8 +400,7 @@ for (let enemy_s_num = 0 ; enemy_s_num < enemy_s.length ; enemy_s_num++){
 				eb.direction = 0
 				eb.x = enemy_s[enemy_s_num].x + 10
 				eb.y = enemy_s[enemy_s_num].y
-			}
-			if ((playerb.x-enemy_s[enemy_s_num].x)>-400&&(playerb.x-enemy_s[enemy_s_num].x)<0){
+			}else{
 				eb.direction = 180
 				eb.x = enemy_s[enemy_s_num].x - 10
 				eb.y = enemy_s[enemy_s_num].y
