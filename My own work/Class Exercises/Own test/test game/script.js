@@ -26,6 +26,7 @@ let game_start = false
 let menu_setted = false
 let choose_level = false
 let last_slash_frame = -480
+let level_choise = 0
 
 let levels = [	["...................",
 				"=.................=",
@@ -38,7 +39,17 @@ let levels = [	["...................",
 				"=.................=",
 				"=.....e..e...e....=",
 				"==================="],
-			  ,[]
+			   ["...................",
+				"=.................=",
+				"=.................=",
+				"=.................=",
+				"=.................=",
+				"=.................=",
+				"=.................=",
+				"=.................=",
+				"=.................=",
+				"=.................=",
+				"==================="]
 ]
 
 function setup(){
@@ -128,7 +139,7 @@ function setting_up() {
 	
 	let player_g = new GlueJoint(playerb, playerl);
 
-	new Tiles(levels[0],
+	new Tiles(levels[level_choise],
 		50,
 		50,
 		floor.w,
@@ -485,14 +496,16 @@ function menu(){
 			}
 		}
 		choose_level = true
-	}
-	if (choose_level == true){
-	if (level_button[0].mouse.released()){
-		gameover = false 
-		game_start = true 
-		settedup = false
-		choose_level = false
-	}}
+		if (choose_level == true){
+			if (level_button[level_num].mouse.released()){
+				gameover = false 
+				game_start = true 
+				settedup = false
+				choose_level = false
+				level_choise = level_num
+			}
 
+		}
+	}
 
 }
