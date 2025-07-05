@@ -5,7 +5,7 @@ let bullet
 let slash 
 let slashing
 let health_point 
-let enemy,enemy_s,enemy_b
+let enemy,enemy_s,enemy_b, enemy_f
 let block
 let player
 let button, start, restart
@@ -37,7 +37,7 @@ let levels = [	["...................",
 				"=.................=",
 				"=.................=",
 				"=.................=",
-				"=.....e..e...e....=",
+				"=.....s..s...s....=",
 				"==================="],
 			   ["...................",
 				"=.................=",
@@ -45,7 +45,7 @@ let levels = [	["...................",
 				"=.................=",
 				"=.................=",
 				"=.................=",
-				"=.................=",
+				"=........f........=",
 				"=.................=",
 				"=.................=",
 				"=.................=",
@@ -129,13 +129,18 @@ function setting_up() {
 	enemy_s.w = 25
 	enemy_s.h = 25
 	enemy_s.rotationLock =true
-	enemy_s.tile = "e"
+	enemy_s.tile = "s"
 
 	enemy_b = new enemy.Group()
 	enemy_b.diameter=10
 	enemy_b.collider = "none"
 	enemy_b.speed = 5
 	
+	enemy_f.w = 25
+	enemy_f.h = 25
+	enemy_f.rotat = 45
+	enemy_f.rotationLock =true
+	enemy_f.tile = "f"
 	
 	let player_g = new GlueJoint(playerb, playerl);
 
