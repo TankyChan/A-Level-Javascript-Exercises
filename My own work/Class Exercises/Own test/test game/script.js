@@ -28,7 +28,7 @@ let choose_level = false
 let last_slash_frame = -480
 let level_choise = 0
 
-let levels = [	["...................",
+let levels = [ ["...................",
 				"=.................=",
 				"=.................=",
 				"=.................=",
@@ -138,7 +138,7 @@ function setting_up() {
 	
 	enemy_f.w = 25
 	enemy_f.h = 25
-	enemy_f.rotat = 45
+	enemy_f.rotate = 45
 	enemy_f.rotationLock =true
 	enemy_f.tile = "f"
 	
@@ -489,18 +489,24 @@ function menu(){
 		level_button.w = 75
 		level_button.h = 75
 		level_button.amount = 6
-		for (let level_num = 0 ; level_num<level_button.length;level_num+=1){
-			level_button[level_num].text = level_num+1
-			if (level_num<3){
-				level_button[level_num].y = camera.y - 50
-				level_button[level_num].x = camera.x + 80*(level_num-1)
-			}
-			else if (level_num<6){
-				level_button[level_num].y = camera.y + 50
-				level_button[level_num].x = camera.x + 80*(level_num-4)
+		if (choose_level==false){
+			for (let level_num = 0 ; level_num<level_button.length;level_num+=1){
+				level_button[level_num].text = level_num+1
+				if (level_num<3){
+					level_button[level_num].y = camera.y - 50
+					level_button[level_num].x = camera.x + 80*(level_num-1)
+				}
+				else if (level_num<6){
+					level_button[level_num].y = camera.y + 50
+					level_button[level_num].x = camera.x + 80*(level_num-4)
+				}
+				if(level_num===5){
+					choose_level = true
+				}
 			}
 		}
-		choose_level = true
+	}
+	for (let level_num = 0 ; level_num<level_button.length;level_num+=1){
 		if (choose_level == true){
 			if (level_button[level_num].mouse.released()){
 				gameover = false 
@@ -509,7 +515,6 @@ function menu(){
 				choose_level = false
 				level_choise = level_num
 			}
-
 		}
 	}
 
