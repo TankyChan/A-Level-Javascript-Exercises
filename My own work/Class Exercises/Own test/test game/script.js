@@ -1,16 +1,7 @@
-let playerl
-let playerb 
-let floor
-let bullet 
-let slash 
-let slashing
-let health_point 
+let playerl, playerb, bullet, slash, player, slashing, health_point
+let floor, block
 let enemy,enemy_s,enemy_b, enemy_f
-let block
-let player
-let button, start, restart
-let gg
-let level_button
+let button, start, restart, level_button, gg
 
 let doublejump = true 
 let right = true 
@@ -52,6 +43,7 @@ let levels = [ ["...................",
 				"==================="]
 ]
 
+
 function setup(){
 	new Canvas(750, 375);
 	world.gravity.y = 11;
@@ -62,9 +54,11 @@ function setup(){
 	gg = new Sprite()
 	enemy = new Group()
 	enemy_s = new enemy.Group()
+	enemy_f = new enemy.Group()
 	level_button = new Group()
 	
 }
+
 
 function setting_up() {
 	allSprites.remove()
@@ -138,7 +132,7 @@ function setting_up() {
 	
 	enemy_f.w = 25
 	enemy_f.h = 25
-	enemy_f.rotate = 45
+	enemy_f.rotation = 45
 	enemy_f.rotationLock =true
 	enemy_f.tile = "f"
 	
@@ -153,6 +147,7 @@ function setting_up() {
 
 	settedup = true
 }
+
 
 function draw() {
 	frameRate(60)
@@ -195,8 +190,7 @@ function draw() {
 function game() {
 	camera.x = playerb.x;
 	camera.y = playerb.y;
-	if (kb.pressing("a"))
-	{
+	if (kb.pressing("a")){
 		right = false
 		if (playerl.vel.x > -3){
 			playerb.vel.x = -4.5 ;
@@ -209,8 +203,7 @@ function game() {
 			playerl.y += 1
 		}
 	}
-	else if (kb.pressing("d"))
-	{
+	else if (kb.pressing("d")){
 		right = true
 		if (playerl.vel.x < 3){
 			playerb.vel.x = 4.5 ;
@@ -223,8 +216,7 @@ function game() {
 			playerb.y += 1
 		}
 	}
-	else if (playerl.colliding(floor))
-	{
+	else if (playerl.colliding(floor)){
 			playerb.vel.x = 0 
 	}
 	
@@ -248,13 +240,11 @@ function game() {
 		}
 	}
 
-	if (playerl.colliding(floor))
-	{
+	if (playerl.colliding(floor)){
 		doublejump = true
 	}
 
-	if (kb.presses("i"))
-	{
+	if (kb.presses("i")){
 			let pb = new pbullet.Sprite()
 			if (right == true){
 				if (playerl.colliding(floor)&&playerb.colliding(floor)){
@@ -289,8 +279,8 @@ function game() {
 			}
 			if (pbn>3){
 				pbullet[pbn].remove()
-			}}
-	
+			}
+		}
 
 	if (kb.presses("u")){
 		if ((frameCount-last_slash_frame)>30){
@@ -328,6 +318,7 @@ function game() {
 			}
 		}
 	}
+
 	for (let psl = 0 ; psl < slash.length ; psl++) {
 		if (psl>0){
 			slash[psl].remove()
@@ -359,11 +350,12 @@ function game() {
 	health_point.amount = health
 	health_point[0].x = camera.x - 350
 	health_point[0].y = camera.y - 50
-	for (let hp = 1 ; hp < health ; hp++){
-		health_point[hp].x = camera.x - 350
-		health_point[hp].y = health_point[0].y -4*hp
+		for (let hp = 1 ; hp < health ; hp++){
+			health_point[hp].x = camera.x - 350
+			health_point[hp].y = health_point[0].y -4*hp
+		}
 	}
-	}
+
 	else {
 		allSprites.remove()
 
@@ -381,67 +373,69 @@ function game() {
 		gameover = true
 	}
 
-if (enemy_hp.length<enemy_s.length){
-	enemy_hp.push (5)
-	last_eb_frame.push (-100)
-}
+	if (enemy_hp.length<enemy_s.length){
+		enemy_hp.push (5)
+		last_eb_frame.push (-100)
+	}
 
-for (let enemy_s_num = 0 ; enemy_s_num < enemy_s.length ; enemy_s_num++){
-	
-	if (slash.overlaps(enemy_s[enemy_s_num])){
-		enemy_hp[enemy_s_num] = enemy_hp[enemy_s_num]-2
-	}
-	for (let pbn = 0 ; pbn < pbullet.length ; pbn++){
-		if(pbullet[pbn].overlaps(enemy)){
-			enemy_hp[enemy_s_num] = enemy_hp[enemy_s_num]-1
-			pbullet[pbn].remove()
+	for (let enemy_s_num = 0 ; enemy_s_num < enemy_s.length ; enemy_s_num++){
+		
+		if (slash.overlaps(enemy_s[enemy_s_num])){
+			enemy_hp[enemy_s_num] = enemy_hp[enemy_s_num]-2
 		}
-	}
-	if (enemy_hp[enemy_s_num]<1){
-		enemy_hp.splice(enemy_s_num,1)
-		last_eb_frame.splice(enemy_s_num,1)
-		enemy_s[enemy_s_num].remove()
-
-	}
-	if (enemy_s.length>0){
-		if ((playerb.x-enemy_s[enemy_s_num].x)>100||(playerb.x-enemy_s[enemy_s_num].x)<-100){
-			enemy_s[enemy_s_num].vel.x = 2*Math.cos((frameCount-60*enemy_s_num)*0.05)
-		}
-		else{
-			
-			
-			if ((frameCount-last_eb_frame[enemy_s_num])>60){
-			let eb = new enemy_b.Sprite()
-			if ((playerb.x-enemy_s[enemy_s_num].x)<400&&(playerb.x-enemy_s[enemy_s_num].x)>0){
-				eb.direction = 0
-				eb.x = enemy_s[enemy_s_num].x + 10
-				eb.y = enemy_s[enemy_s_num].y
-			}else{
-				eb.direction = 180
-				eb.x = enemy_s[enemy_s_num].x - 10
-				eb.y = enemy_s[enemy_s_num].y
+		for (let pbn = 0 ; pbn < pbullet.length ; pbn++){
+			if(pbullet[pbn].overlaps(enemy)){
+				enemy_hp[enemy_s_num] = enemy_hp[enemy_s_num]-1
+				pbullet[pbn].remove()
 			}
 		}
-			for (let ebn = 0 ; ebn < enemy_b.length ; ebn++) {
-				if (enemy_b[ebn].overlaps(floor)||enemy_b[ebn].overlaps(playerb)||(enemy_b[ebn].x-camera.x)>400||(enemy_b[ebn].x-camera.x)<-400||enemy_b[ebn].overlaps(slash)){
-					enemy_b[ebn].remove()
-					ebn -= 1
+		if (enemy_hp[enemy_s_num]<1){
+			enemy_hp.splice(enemy_s_num,1)
+			last_eb_frame.splice(enemy_s_num,1)
+			enemy_s[enemy_s_num].remove()
+
+		}
+		if (enemy_s.length>0){
+			if ((playerb.x-enemy_s[enemy_s_num].x)>100||(playerb.x-enemy_s[enemy_s_num].x)<-100){
+				enemy_s[enemy_s_num].vel.x = 2*Math.cos((frameCount-60*enemy_s_num)*0.05)
+			}
+			else{
+				
+				
+				if ((frameCount-last_eb_frame[enemy_s_num])>60){
+				let eb = new enemy_b.Sprite()
+				if ((playerb.x-enemy_s[enemy_s_num].x)<400&&(playerb.x-enemy_s[enemy_s_num].x)>0){
+					eb.direction = 0
+					eb.x = enemy_s[enemy_s_num].x + 10
+					eb.y = enemy_s[enemy_s_num].y
+				}else{
+					eb.direction = 180
+					eb.x = enemy_s[enemy_s_num].x - 10
+					eb.y = enemy_s[enemy_s_num].y
 				}
-				if (ebn>0){
-					if (((enemy_b[ebn-1].x-enemy_b[ebn].x)<50&&(enemy_b[ebn-1].x-enemy_b[ebn].x)>0)||((enemy_b[ebn-1].x-enemy_b[ebn].x)>-50)&&(enemy_b[ebn-1].x-enemy_b[ebn].x)<0){
+			}
+				for (let ebn = 0 ; ebn < enemy_b.length ; ebn++) {
+					if (enemy_b[ebn].overlaps(floor)||enemy_b[ebn].overlaps(playerb)||(enemy_b[ebn].x-camera.x)>400||(enemy_b[ebn].x-camera.x)<-400||enemy_b[ebn].overlaps(slash)){
 						enemy_b[ebn].remove()
 						ebn -= 1
-				}}
-				if (ebn>3){
-					enemy_b[ebn].remove()
-					ebn -= 1
-					last_eb_frame[enemy_s_num] = frameCount
+					}
+					if (ebn>0){
+						if (((enemy_b[ebn-1].x-enemy_b[ebn].x)<50&&(enemy_b[ebn-1].x-enemy_b[ebn].x)>0)||((enemy_b[ebn-1].x-enemy_b[ebn].x)>-50)&&(enemy_b[ebn-1].x-enemy_b[ebn].x)<0){
+							enemy_b[ebn].remove()
+							ebn -= 1
+						}
+					}
+					if (ebn>3){
+						enemy_b[ebn].remove()
+						ebn -= 1
+						last_eb_frame[enemy_s_num] = frameCount
+					}
 				}
 			}
+		}
 	}
-	
 }
-}}
+
 
 function restart_menu_setup(){
 	world.gravity.y = 0;
@@ -457,6 +451,7 @@ function restart_menu_setup(){
 	restart.text = "back to \nmenu"
 }
 
+
 function restart_menu() {
 	if (restart.mouse.released()) {
 		gg.remove()
@@ -466,6 +461,7 @@ function restart_menu() {
 		game_start = false
 	}
 }
+
 
 function menu_setup(){
 	allSprites.remove()
@@ -483,39 +479,40 @@ function menu_setup(){
 
 }
 
+
 function menu(){
 	if (start.mouse.released()) {
 		start.remove()
 		level_button.w = 75
 		level_button.h = 75
 		level_button.amount = 6
-		if (choose_level==false){
-			for (let level_num = 0 ; level_num<level_button.length;level_num+=1){
-				level_button[level_num].text = level_num+1
-				if (level_num<3){
-					level_button[level_num].y = camera.y - 50
-					level_button[level_num].x = camera.x + 80*(level_num-1)
-				}
-				else if (level_num<6){
-					level_button[level_num].y = camera.y + 50
-					level_button[level_num].x = camera.x + 80*(level_num-4)
-				}
-				if(level_num===5){
-					choose_level = true
-				}
-			}
-		}
-	}
-	for (let level_num = 0 ; level_num<level_button.length;level_num+=1){
-		if (choose_level == true){
-			if (level_button[level_num].mouse.released()){
-				gameover = false 
-				game_start = true 
-				settedup = false
-				choose_level = false
-				level_choise = level_num
-			}
-		}
 	}
 
+	for (let level_num = 0 ; level_num<level_button.length;level_num+=1){
+		if (choose_level==false){
+			level_button[level_num].text = level_num+1
+			if (level_num<3){
+				level_button[level_num].y = camera.y - 50
+				level_button[level_num].x = camera.x + 80*(level_num-1)
+			}
+			else if (level_num<6){
+				level_button[level_num].y = camera.y + 50
+				level_button[level_num].x = camera.x + 80*(level_num-4)
+			}
+			if(level_num===5){
+				choose_level = true
+			}
+		}
+		else{
+			if (choose_level == true){
+				if (level_button[level_num].mouse.released()){
+					gameover = false 
+					game_start = true 
+					settedup = false
+					choose_level = false
+					level_choise = level_num
+				}
+			}
+		}
+	}
 }
