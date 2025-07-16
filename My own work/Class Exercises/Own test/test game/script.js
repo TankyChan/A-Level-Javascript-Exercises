@@ -16,6 +16,7 @@ let restart_menu_setted = false
 let game_start = false
 let menu_setted = false
 let choose_level = false
+let started = false
 let last_slash_frame = -480
 let level_choise = 0
 
@@ -55,8 +56,9 @@ function setup(){
 	enemy = new Group()
 	enemy_s = new enemy.Group()
 	enemy_f = new enemy.Group()
-	level_button = new Group()
 	
+
+
 }
 
 
@@ -336,11 +338,11 @@ function game() {
 		}
 	}
 
-	if ((playerl.collides(enemy)||playerb.collides(enemy)||enemy_b.overlaps(playerb)||enemy_b.overlaps(playerl))&&(frameCount - last_hit_frame)>90){
+	if ((playerl.collides(enemy)||playerb.collides(enemy)||enemy_b.overlaps(playerb)||enemy_b.overlaps(playerl))&&(frameCount - last_hit_frame)>10){
 		health -= 1
 		last_hit_frame = frameCount
 		if (playerb.x>enemy.x){
-			if (frameCount-last_hit_frame<30){
+			if (frameCount-last_hit_frame<10){
 				playerb.vel.x = 5
 			}
 		}
@@ -477,39 +479,47 @@ function menu_setup(){
 	start.textSize = 30
 	start.text = "start"
 
+	level_button = new button.Group()
+
 }
 
 
 function menu(){
 	if (start.mouse.released()) {
 		start.remove()
-		level_button.w = 75
-		level_button.h = 75
-		level_button.amount = 6
+		for (let i = 0; i < 6; i++) {
+			let btn = new button.Sprite();
+			btn.w = 75;
+			btn.h = 75;
+			btn.text = i + 1;
+			level_button.add(btn);
+		}
+		started = true
 	}
 
-	for (let level_num = 0 ; level_num<level_button.length;level_num+=1){
-		if (choose_level==false){
-			level_button[level_num].text = level_num+1
-			if (level_num<3){
-				level_button[level_num].y = camera.y - 50
-				level_button[level_num].x = camera.x + 80*(level_num-1)
+	if (started == true){
+		for (let level_num = 0 ; level_num<level_button.length;level_num+=1){
+			if (choose_level==false){
+				if (level_num<3){
+					level_button[level_num].y = camera.y - 50
+					level_button[level_num].x = camera.x + 80*(level_num-1)
+				}
+				else if (level_num<6){
+					level_button[level_num].y = camera.y + 50
+					level_button[level_num].x = camera.x + 80*(level_num-4)
+				}
+
+				if(level_num===5){
+					choose_level = true
+				}
 			}
-			else if (level_num<6){
-				level_button[level_num].y = camera.y + 50
-				level_button[level_num].x = camera.x + 80*(level_num-4)
-			}
-			if(level_num===5){
-				choose_level = true
-			}
-		}
-		else{
-			if (choose_level == true){
+			else{
 				if (level_button[level_num].mouse.released()){
 					gameover = false 
 					game_start = true 
 					settedup = false
 					choose_level = false
+					started = false
 					level_choise = level_num
 				}
 			}
