@@ -2,6 +2,7 @@ let playerl, playerb, bullet, slash, player, slashing, health_point
 let floor, block
 let enemy,enemy_s,enemy_b, enemy_f
 let button, start, restart, level_button, gg
+let select_arrow 
 
 let doublejump = true 
 let right = true 
