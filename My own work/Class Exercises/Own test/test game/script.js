@@ -20,6 +20,7 @@ let choose_level = false
 let started = false
 let last_slash_frame = -480
 let level_choise = 0
+let level_num = 0
 
 let levels = [ ["...................",
 				"=.................=",
@@ -438,7 +439,6 @@ function game() {
 function restart_menu_setup(){
 	world.gravity.y = 0;
 
-
 	restart = new button.Sprite()
 	restart.w = 150
 	restart.h = 75
@@ -451,7 +451,7 @@ function restart_menu_setup(){
 
 
 function restart_menu() {
-	if (restart.mouse.released()) {
+	if (kb.presses('space')) {
 		gg.remove()
 		restart.remove()
 		button = new Group()
@@ -477,15 +477,21 @@ function menu_setup(){
 
 	level_button = new button.Group()
 
+	select_arrow = 	new Sprite([[8, 8], [24, 24], [40, 8], [8, 8]]);
+	select_arrow.offset.y = -55
+	select_arrow.x = start.x
+	select_arrow.y = start.y
+	select_arrow.rotationLock = true
+
 }
 
 
 function menu(){
 	if(started == false){
-		if (start.mouse.released()) {
+		if (kb.presses('space')) {
 			start.remove()
 			for (let i = 0; i < 6; i++) {
-				let btn = new button.Sprite();
+				let btn = new button.Sprite(); 
 				btn.w = 75;
 				btn.h = 75;
 				btn.text = i + 1;
@@ -500,18 +506,49 @@ function menu(){
 				level_button.add(btn);
 			}
 			started = true
-		}
+			level_num = 0
+			
+		} 
 	}
 	else{
-		for (let level_num = 0 ; level_num<level_button.length;level_num+=1){
-			if (level_button[level_num].mouse.released()){
+		select_arrow.x = level_button[level_num].x
+		select_arrow.y = level_button[level_num].y
+		if (kb.pressed('d')){
+			if (level_num === 5){
+				level_num = 0
+			}else{
+				level_num += 1
+			}
+		}
+		if (kb.presses('a')){
+			if (level_num === 0){
+				level_num = 5
+			}else{
+				level_num += -1
+			}
+		}
+		if (kb.presses('s')){
+			if (level_num>2){
+				level_num += -3
+			}else{
+				level_num += 3
+			}
+		}
+		if (kb.presses('w')){
+			if (level_num<3){
+				level_num += 3
+			}else{
+				level_num += -3
+			}
+		}
+		if (kb.presses('space')){
 				gameover = false 
 				game_start = true 
 				settedup = false
 				choose_level = false
 				started = false
 				level_choise = level_num
-			}
 		}
+
 	}
 }
