@@ -342,7 +342,7 @@ function game() {
 		health -= 1
 		last_hit_frame = frameCount
 		if (playerb.x>enemy.x){
-			if (frameCount-last_hit_frame<10){
+			if (frameCount-last_hit_frame<120){
 				playerb.vel.x = 5
 			}
 		}
