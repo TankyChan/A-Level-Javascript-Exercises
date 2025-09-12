@@ -10,6 +10,7 @@ let right_slash = true
 let gameover = false 
 let health = 25
 let enemy_hp = []
+let enemy_b_num = []
 let last_eb_frame = []
 let last_hit_frame = -480
 let settedup = false
@@ -378,6 +379,7 @@ function game() {
 	if (enemy_hp.length<enemy_s.length){
 		enemy_hp.push (5)
 		last_eb_frame.push (-100)
+		enemy_b_num.push (0)
 	}
 
 	for (let enemy_s_num = 0 ; enemy_s_num < enemy_s.length ; enemy_s_num++){
