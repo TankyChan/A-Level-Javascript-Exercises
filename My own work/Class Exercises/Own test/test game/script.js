@@ -417,7 +417,8 @@ function game() {
 					enemy_b_num[enemy_s_num] += 1
 				}
 			}
-				for (let ebn = 0 ; ebn < enemy_b.length ; ebn++) {
+			if (enemy_b.length > 2){
+				for (let ebn = 0 ; ebn < enemy_b_num[enemy_s_num] ; ebn++) {
 					if (enemy_b[ebn].overlaps(floor)||enemy_b[ebn].overlaps(playerb)||(Math.abs(enemy_b[ebn].x-camera.x))>400||enemy_b[ebn].overlaps(slash)){
 						enemy_b[ebn].remove()
 						ebn -= 1
@@ -434,6 +435,7 @@ function game() {
 						last_eb_frame[enemy_s_num] = frameCount
 					}
 				}
+			}
 			}
 		}
 	}
