@@ -409,10 +409,12 @@ function game() {
 					eb.direction = 0
 					eb.x = enemy_s[enemy_s_num].x + 10
 					eb.y = enemy_s[enemy_s_num].y
+					enemy_b_num[enemy_s_num] += 1
 				}else{
 					eb.direction = 180
 					eb.x = enemy_s[enemy_s_num].x - 10
 					eb.y = enemy_s[enemy_s_num].y
+					enemy_b_num[enemy_s_num] += 1
 				}
 			}
 				for (let ebn = 0 ; ebn < enemy_b.length ; ebn++) {
