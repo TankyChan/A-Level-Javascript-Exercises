@@ -416,12 +416,12 @@ function game() {
 				}
 			}
 				for (let ebn = 0 ; ebn < enemy_b.length ; ebn++) {
-					if (enemy_b[ebn].overlaps(floor)||enemy_b[ebn].overlaps(playerb)||(enemy_b[ebn].x-camera.x)>400||(enemy_b[ebn].x-camera.x)<-400||enemy_b[ebn].overlaps(slash)){
+					if (enemy_b[ebn].overlaps(floor)||enemy_b[ebn].overlaps(playerb)||(Math.abs(enemy_b[ebn].x-camera.x))>400||enemy_b[ebn].overlaps(slash)){
 						enemy_b[ebn].remove()
 						ebn -= 1
 					}
 					if (ebn>0){
-						if (((enemy_b[ebn-1].x-enemy_b[ebn].x)<50&&(enemy_b[ebn-1].x-enemy_b[ebn].x)>0)||((enemy_b[ebn-1].x-enemy_b[ebn].x)>-50)&&(enemy_b[ebn-1].x-enemy_b[ebn].x)<0){
+						if ((Math.abs(enemy_b[ebn-1].x-enemy_b[ebn].x)<50&&Math.abs(enemy_b[ebn-1].x-enemy_b[ebn].x)>0)){
 							enemy_b[ebn].remove()
 							ebn -= 1
 						}
