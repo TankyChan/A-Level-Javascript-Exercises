@@ -425,11 +425,13 @@ function game() {
 					}
 					if (ebn>0){
 						if ((Math.abs(enemy_b[ebn-1].x-enemy_b[ebn].x)<50&&Math.abs(enemy_b[ebn-1].x-enemy_b[ebn].x)>0)){
+							enemy_b_num[enemy_s_num] += -1
 							enemy_b[ebn].remove()
 							ebn -= 1
 						}
 					}
 					if (ebn>3){
+						enemy_b_num[enemy_s_num] += -1
 						enemy_b[ebn].remove()
 						ebn -= 1
 						last_eb_frame[enemy_s_num] = frameCount
