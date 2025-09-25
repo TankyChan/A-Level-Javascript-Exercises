@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Box Mover</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="controls">
+            <div class="control-group">
+                <label>X Position (px):</label>
+                <input type="number" id="xPosition" value="0" min="0" max="450">
+            </div>
+            
+            <div class="control-group">
+                <label>Y Position (px):</label>
+                <input type="number" id="yPosition" value="0" min="0" max="450">
+            </div>
+            
+            <div class="control-group">
+                <label>Width (px):</label>
+                <input type="number" id="boxWidth" value="50" min="20" max="100">
+            </div>
+            
+            <div class="control-group">
+                <label>Height (px):</label>
+                <input type="number" id="boxHeight" value="50" min="20" max="100">
+            </div>
+            
+            <div class="control-group">
+                <label>Background Color:</label>
+                <input type="color" id="boxColor" value="#ff0000">
+            </div>
+            
+            <div class="control-group">
+                <label>Rotation (degrees):</label>
+                <input type="range" id="rotation" min="0" max="360" value="0">
+            </div>
+        </div>
+
+        <div class="play-area">
+            <div id="movableBox"></div>
+        </div>
+
+        <div class="current-values">
+            <p>Position: (<span id="currentX">0</span>, <span id="currentY">0</span>)</p>
+            <p>Size: <span id="currentWidth">50</span> × <span id="currentHeight">50</span> pixels</p>
+            <p>Rotation: <span id="currentRotation">0</span>°</p>
+            <p>Color: <span id="currentColor">#FF0000</span></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

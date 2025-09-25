@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Insurance Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Car Insurance Calculator</h1>
+        
+        <div class="input-section">
+            <label for="age">Driver's Age:</label>
+            <input type="number" id="age" min="17" max="99">
+            
+            <label for="noClaims">Years of No Claims Bonus:</label>
+            <input type="number" id="noClaims" min="0" max="50">
+            
+            <label for="previousClaims">Number of Previous Claims:</label>
+            <input type="number" id="previousClaims" min="0" max="10">
+            
+            <button id="calculateButton">Calculate Premium</button>
+        </div>
+
+        <div class="output-section">
+            <div id="breakdownSection"></div>
+            <p id="result"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

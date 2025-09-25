@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holiday Package Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Holiday Package Calculator</h1>
+        
+        <div class="input-section">
+            <h2>Room Selection</h2>
+            <label for="roomType">Room Type:</label>
+            <select id="roomType">
+                <option value="standard">Standard Room</option>
+                <option value="premium">Premium Room</option>
+                <option value="suite">Suite</option>
+            </select>
+            
+            <label for="guests">Number of Guests:</label>
+            <input type="number" id="guests" min="1" max="6" value="2">
+            
+            <h2>Dates</h2>
+            <label for="checkIn">Check-in Date:</label>
+            <input type="date" id="checkIn">
+            
+            <label for="checkOut">Check-out Date:</label>
+            <input type="date" id="checkOut">
+            
+            <h2>Board Options</h2>
+            <label for="boardType">Board Type:</label>
+            <select id="boardType">
+                <option value="selfCatering">Self Catering</option>
+                <option value="bedBreakfast">Bed & Breakfast</option>
+                <option value="halfBoard">Half Board</option>
+                <option value="allInclusive">All Inclusive</option>
+            </select>
+            
+            <h2>Optional Extras</h2>
+            <div class="checkbox-group">
+                <label>
+                    <input type="checkbox" id="transfer"> Airport Transfer (£30 pp)
+                </label>
+                <label>
+                    <input type="checkbox" id="insurance"> Travel Insurance (£20 pp)
+                </label>
+                <label>
+                    <input type="checkbox" id="priority"> Priority Check-in (£15)
+                </label>
+                <label>
+                    <input type="checkbox" id="seaView"> Sea View (15% supplement)
+                </label>
+                <label>
+                    <input type="checkbox" id="lateCheckout"> Late Check-out (£30)
+                </label>
+            </div>
+            
+            <button id="calculateButton">Calculate Total</button>
+        </div>
+
+        <div class="output-section">
+            <h2>Price Breakdown</h2>
+            <div id="roomCost"></div>
+            <div id="boardCost"></div>
+            <div id="extrasCost"></div>
+            <div id="seasonalAdjustment"></div>
+            <div id="discounts"></div>
+            <div id="totalCost"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

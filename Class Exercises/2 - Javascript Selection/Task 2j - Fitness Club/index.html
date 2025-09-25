@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Club Membership Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Fitness Club Membership Calculator</h1>
+        
+        <div class="input-section">
+            <h2>Membership Options</h2>
+            <label for="membershipTier">Select Membership Tier:</label>
+            <select id="membershipTier">
+                <option value="basic">Basic (£30/month)</option>
+                <option value="standard">Standard (£45/month)</option>
+                <option value="premium">Premium (£65/month)</option>
+                <option value="elite">Elite (£85/month)</option>
+            </select>
+            
+            <label for="contractLength">Contract Length:</label>
+            <select id="contractLength">
+                <option value="1">Monthly</option>
+                <option value="6">6 Months</option>
+                <option value="12">12 Months</option>
+            </select>
+            
+            <div class="checkbox-group">
+                <label>
+                    <input type="checkbox" id="student"> Student Membership
+                </label>
+                <label>
+                    <input type="checkbox" id="joinWithFriend"> Joining with a Friend
+                </label>
+                <label>
+                    <input type="checkbox" id="weekendAccess"> Weekend Access (Basic only)
+                </label>
+            </div>
+            
+            <h2>Add-on Services</h2>
+            <div class="checkbox-group">
+                <label>
+                    <input type="checkbox" id="extraPT"> Extra PT Session (£35/month)
+                </label>
+                <label>
+                    <input type="checkbox" id="locker"> Locker Rental (£10/month)
+                </label>
+                <label>
+                    <input type="checkbox" id="towel"> Towel Service (£8/month)
+                </label>
+                <label>
+                    <input type="checkbox" id="nutrition"> Nutrition Plan (£25/month)
+                </label>
+                <label>
+                    <input type="checkbox" id="groupPass"> Extra Group Class Pass (£20/month)
+                </label>
+            </div>
+            
+            <button id="calculateButton">Calculate Membership</button>
+        </div>
+
+        <div class="output-section">
+            <div class="membership-summary">
+                <h2>Membership Summary</h2>
+                <div id="includedBenefits"></div>
+                <div id="addons"></div>
+                <div id="discounts"></div>
+            </div>
+            
+            <div class="cost-breakdown">
+                <h2>Cost Breakdown</h2>
+                <div id="monthlyCost"></div>
+                <div id="savings"></div>
+                <div id="totalCost"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

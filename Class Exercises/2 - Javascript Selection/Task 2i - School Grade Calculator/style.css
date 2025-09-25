@@ -1,0 +1,148 @@
+.container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: #444;
+    font-size: 1.2em;
+    margin: 20px 0 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+}
+
+.input-section {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.grade-input {
+    margin: 15px 0;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+}
+
+label {
+    display: block;
+    margin: 5px 0;
+    color: #555;
+    font-weight: bold;
+    text-align: left;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.2);
+}
+
+button {
+    margin: 20px 0;
+    padding: 12px 30px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.output-section {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.component-grades {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.component-grades div {
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+}
+
+#weightedTotals {
+    margin: 15px 0;
+    padding: 15px;
+    background-color: #e8f5e9;
+    border-radius: 4px;
+}
+
+#finalGrade {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #4CAF50;
+    text-align: center;
+    margin: 20px 0;
+    padding: 15px;
+    border-top: 2px solid #ddd;
+    border-bottom: 2px solid #ddd;
+}
+
+#feedback {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-left: 4px solid #4CAF50;
+    border-radius: 4px;
+}
+
+/* Add some responsive design */
+@media (max-width: 850px) {
+    .container {
+        margin: 20px;
+        padding: 15px;
+    }
+    
+    input {
+        font-size: 14px;
+    }
+    
+    .input-section, .output-section {
+        padding: 15px;
+    }
+    
+    .component-grades {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Length Converter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Length Converter</h1>
+        
+        <div class="input-section">
+            <label for="feet">Feet:</label>
+            <input type="number" id="feet" min="0">
+            
+            <label for="inches">Inches:</label>
+            <input type="number" id="inches" min="0" max="11">
+            
+            <button id="convertBtn">Convert to Centimeters</button>
+        </div>
+
+        <div class="output-section">
+            <h2>Result:</h2>
+            <p>Length in Centimeters: <span id="centimeters"></span> cm</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

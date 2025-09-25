@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pay Rise Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Pay Rise Calculator</h1>
+        
+        <div class="input-section">
+            <label for="currentSalary">Current Annual Salary (£):</label>
+            <input type="number" id="currentSalary" min="0" step="0.01">
+            
+            <label for="months">Months Back Dated:</label>
+            <input type="number" id="months" min="0" max="12">
+            
+            <label for="percentage">Pay Rise Percentage (%):</label>
+            <input type="number" id="percentage" min="0" step="0.1">
+            
+            <button id="calculateBtn">Calculate Pay Rise</button>
+        </div>
+
+        <div class="output-section">
+            <h2>Results:</h2>
+            <p>New Annual Salary: £<span id="newSalary"></span></p>
+            <p>Back Pay Due: £<span id="backPay"></span></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

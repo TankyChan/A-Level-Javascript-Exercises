@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Grade Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>School Grade Calculator</h1>
+        
+        <div class="input-section">
+            <h2>Coursework (30%)</h2>
+            <div class="grade-input">
+                <label for="assignment1">Assignment 1 (40%):</label>
+                <input type="number" id="assignment1" min="0" max="100">
+            </div>
+            
+            <div class="grade-input">
+                <label for="assignment2">Assignment 2 (60%):</label>
+                <input type="number" id="assignment2" min="0" max="100">
+            </div>
+            
+            <h2>Tests (40%)</h2>
+            <div class="grade-input">
+                <label for="midterm">Mid-term Test (40%):</label>
+                <input type="number" id="midterm" min="0" max="100">
+            </div>
+            
+            <div class="grade-input">
+                <label for="finalTest">Final Test (60%):</label>
+                <input type="number" id="finalTest" min="0" max="100">
+            </div>
+            
+            <h2>Class Participation (30%)</h2>
+            <div class="grade-input">
+                <label for="attendance">Attendance % (40%):</label>
+                <input type="number" id="attendance" min="0" max="100">
+            </div>
+            
+            <div class="grade-input">
+                <label for="activities">Class Activities (60%):</label>
+                <input type="number" id="activities" min="0" max="100">
+            </div>
+            
+            <button id="calculateButton">Calculate Grade</button>
+        </div>
+
+        <div class="output-section">
+            <div class="component-grades">
+                <div id="courseworkGrade"></div>
+                <div id="testGrade"></div>
+                <div id="participationGrade"></div>
+            </div>
+            
+            <div id="weightedTotals"></div>
+            <div id="finalGrade"></div>
+            <div id="feedback"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

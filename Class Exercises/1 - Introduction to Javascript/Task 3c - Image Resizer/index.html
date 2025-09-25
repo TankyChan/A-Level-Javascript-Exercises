@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Resizer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="controls">
+            <div class="control-group">
+                <label>Width (px):</label>
+                <input type="number" id="widthInput" value="200" min="50" max="500">
+            </div>
+            
+            <div class="control-group">
+                <label>Height (px):</label>
+                <input type="number" id="heightInput" value="200" min="50" max="500">
+            </div>
+            
+            <div class="control-group">
+                <label>Move Left/Right (px):</label>
+                <input type="number" id="leftInput" value="0" min="0" max="500">
+            </div>
+            
+            <div class="control-group">
+                <label>Move Up/Down (px):</label>
+                <input type="number" id="topInput" value="0" min="0" max="500">
+            </div>
+        </div>
+
+        <div class="preview">
+            <img id="previewImage" src="https://picsum.photos/200" alt="Sample Image">
+        </div>
+
+        <div class="current-values">
+            <p>Current Width: <span id="widthValue">200</span>px</p>
+            <p>Current Height: <span id="heightValue">200</span>px</p>
+            <p>Current Left Position: <span id="leftValue">0</span>px</p>
+            <p>Current Top Position: <span id="topValue">0</span>px</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

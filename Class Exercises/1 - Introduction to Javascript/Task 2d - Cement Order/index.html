@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cement Order Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Cement Order Calculator</h1>
+        
+        <div class="input-section">
+            <label for="orderNumber">Order Number:</label>
+            <input type="text" id="orderNumber">
+            
+            <label for="quantity">Number of Bags:</label>
+            <input type="number" id="quantity" min="1">
+            
+            <button id="calculateBtn">Calculate Order</button>
+        </div>
+
+        <div class="output-section">
+            <h2>Order Details:</h2>
+            <p>Order Number: <span id="displayOrderNumber"></span></p>
+            <p>Quantity: <span id="displayQuantity"></span> bags</p>
+            <p>Total Cost: £<span id="totalCost"></span></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.controls {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+}
+
+.control-group {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.control-group label {
+    width: 150px;
+}
+
+.control-group input {
+    width: 100px;
+    padding: 5px;
+}
+
+.preview {
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    min-height: 500px;
+    position: relative;
+}
+
+#previewImage {
+    position: relative;
+}
+
+.current-values {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+.current-values p {
+    margin: 5px 0;
+    font-family: monospace;
+}

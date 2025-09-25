@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Calculations</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Multiple Calculations</h1>
+        
+        <div class="input-section">
+            <label for="numberA">Enter number A:</label>
+            <input type="number" id="numberA">
+            
+            <label for="numberB">Enter number B:</label>
+            <input type="number" id="numberB">
+            
+            <label for="numberC">Enter number C:</label>
+            <input type="number" id="numberC">
+            
+            <button id="calculateBtn">Calculate</button>
+        </div>
+
+        <div class="output-section">
+            <h2>Results:</h2>
+            <p>(A + B + C) / 3: <span id="average"></span></p>
+            <p>A × B × C: <span id="product"></span></p>
+            <p>A + (B × C): <span id="expression"></span></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

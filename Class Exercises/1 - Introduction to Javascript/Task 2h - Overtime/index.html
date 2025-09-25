@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overtime Pay Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Overtime Pay Calculator</h1>
+        
+        <div class="input-section">
+            <label for="standardRate">Standard Hourly Rate (£):</label>
+            <input type="number" id="standardRate" min="0" step="0.01">
+            
+            <label for="overtimeRate">Overtime Rate (£):</label>
+            <input type="number" id="overtimeRate" min="0" step="0.01">
+            
+            <label for="basicHours">Basic Hours Worked:</label>
+            <input type="number" id="basicHours" min="0" step="0.5">
+            
+            <label for="overtimeHours">Overtime Hours Worked:</label>
+            <input type="number" id="overtimeHours" min="0" step="0.5">
+            
+            <button id="calculateBtn">Calculate Pay</button>
+        </div>
+
+        <div class="output-section">
+            <h2>Pay Summary:</h2>
+            <p>Basic Pay: £<span id="basicPay"></span></p>
+            <p>Overtime Pay: £<span id="overtimePay"></span></p>
+            <p>Total Pay: £<span id="totalPay"></span></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mortgage Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Mortgage Calculator</h1>
+        
+        <div class="input-section">
+            <h2>Property Details</h2>
+            <label for="housePrice">House Price (£):</label>
+            <input type="number" id="housePrice" min="50000" step="1000">
+            
+            <label for="deposit">Deposit Amount (£):</label>
+            <input type="number" id="deposit" min="0" step="1000">
+            
+            <h2>Personal Details</h2>
+            <label for="creditScore">Credit Score (300-950):</label>
+            <input type="number" id="creditScore" min="300" max="950">
+            
+            <label for="annualSalary">Annual Salary (£):</label>
+            <input type="number" id="annualSalary" min="0" step="1000">
+            
+            <label for="employmentStatus">Employment Status:</label>
+            <select id="employmentStatus">
+                <option value="fullTime">Full-time Employed</option>
+                <option value="selfEmployed">Self-employed</option>
+                <option value="partTime">Part-time</option>
+            </select>
+            
+            <button id="calculateButton">Calculate Mortgage</button>
+        </div>
+
+        <div class="output-section">
+            <div id="depositPercentage"></div>
+            <div id="interestRate"></div>
+            <div id="monthlyPayment"></div>
+            <div id="totalRepayable"></div>
+            <div id="eligibility"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

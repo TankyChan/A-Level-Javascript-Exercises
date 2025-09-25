@@ -1,0 +1,61 @@
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.controls {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.control-group label {
+    font-weight: bold;
+}
+
+.control-group input {
+    padding: 5px;
+    width: 100px;
+}
+
+.play-area {
+    width: 500px;
+    height: 500px;
+    margin: 20px auto;
+    border: 2px solid #333;
+    position: relative;
+    background-color: #f9f9f9;
+}
+
+#movableBox {
+    width: 50px;
+    height: 50px;
+    background-color: #ff0000;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.current-values {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+}
+
+.current-values p {
+    margin: 5px 0;
+    font-family: monospace;
+}

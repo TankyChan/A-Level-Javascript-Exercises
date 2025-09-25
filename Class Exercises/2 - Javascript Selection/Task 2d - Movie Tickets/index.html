@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Ticket Booking</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Movie Ticket Booking</h1>
+        
+        <div class="input-section">
+            <h2>Ticket Quantities</h2>
+            <label for="adultTickets">Number of Adult Tickets:</label>
+            <input type="number" id="adultTickets" min="0" value="0">
+            
+            <label for="childTickets">Number of Child Tickets:</label>
+            <input type="number" id="childTickets" min="0" value="0">
+            
+            <label for="seniorTickets">Number of Senior Tickets:</label>
+            <input type="number" id="seniorTickets" min="0" value="0">
+            
+            <h2>Showing Details</h2>
+            <label for="dayOfWeek">Day of the Week:</label>
+            <select id="dayOfWeek">
+                <option value="monday">Monday</option>
+                <option value="tuesday">Tuesday</option>
+                <option value="wednesday">Wednesday</option>
+                <option value="thursday">Thursday</option>
+                <option value="friday">Friday</option>
+                <option value="saturday">Saturday</option>
+                <option value="sunday">Sunday</option>
+            </select>
+            
+            <label for="showingTime">Showing Time (24-hour format):</label>
+            <input type="time" id="showingTime">
+            
+            <button id="calculateButton">Calculate Total</button>
+        </div>
+
+        <div class="output-section">
+            <div id="priceBreakdown"></div>
+            <p id="subtotal"></p>
+            <p id="discount"></p>
+            <p id="finalTotal"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

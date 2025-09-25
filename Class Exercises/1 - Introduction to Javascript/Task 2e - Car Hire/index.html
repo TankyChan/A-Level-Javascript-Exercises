@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Hire Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Car Hire Calculator</h1>
+        
+        <div class="input-section">
+            <label for="miles">Miles Travelled:</label>
+            <input type="number" id="miles" min="0">
+            
+            <button id="calculateBtn">Calculate Total Charge</button>
+        </div>
+
+        <div class="output-section">
+            <h2>Hire Charges:</h2>
+            <p>Base Charge: £25.00</p>
+            <p>Mileage Charge: £<span id="mileageCharge"></span></p>
+            <p>Total Charge: £<span id="totalCharge"></span></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

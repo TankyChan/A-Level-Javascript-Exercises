@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hang Gliding Certificate Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Hang Gliding Certificate Calculator</h1>
+        
+        <div class="input-section">
+            <label for="theory">Theory Exam Score (%):</label>
+            <input type="number" id="theory" min="0" max="100">
+            
+            <label for="practical">Practical Exam Score (%):</label>
+            <input type="number" id="practical" min="0" max="100">
+            
+            <button id="calculateButton">Calculate Grade</button>
+        </div>
+
+        <div class="output-section">
+            <p id="result"></p>
+            <p id="average"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

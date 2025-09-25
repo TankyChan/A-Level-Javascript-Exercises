@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Changer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="controls">
+            <div class="control-group">
+                <label>Heading Text Color:</label>
+                <input type="color" id="headingColor" value="#000000">
+            </div>
+            
+            <div class="control-group">
+                <label>Paragraph Background:</label>
+                <input type="color" id="paragraphBg" value="#ffffff">
+            </div>
+            
+            <div class="control-group">
+                <label>Box Background:</label>
+                <input type="color" id="boxBg" value="#ffffff">
+            </div>
+            
+            <div class="control-group">
+                <label>Box Border Color:</label>
+                <input type="color" id="boxBorder" value="#000000">
+            </div>
+        </div>
+
+        <div class="preview">
+            <h1 id="previewHeading">Change My Color</h1>
+            <p id="previewParagraph">This paragraph's background color can be changed. Try selecting different colors to see how it looks!</p>
+            <div id="previewBox" class="box">This box can have both its background and border color changed.</div>
+        </div>
+
+        <div class="current-colors">
+            <p>Heading Color: <span id="headingColorValue">#000000</span></p>
+            <p>Paragraph Background: <span id="paragraphBgValue">#FFFFFF</span></p>
+            <p>Box Background: <span id="boxBgValue">#FFFFFF</span></p>
+            <p>Box Border: <span id="boxBorderValue">#000000</span></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

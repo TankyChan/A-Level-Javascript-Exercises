@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Count by Steps</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Count by Steps</h1>
+        
+        <div class="controls">
+            <div class="input-group">
+                <label for="start">Start Number:</label>
+                <input type="number" id="start" value="1">
+            </div>
+            
+            <div class="input-group">
+                <label for="end">End Number:</label>
+                <input type="number" id="end" value="10">
+            </div>
+            
+            <div class="input-group">
+                <label for="step">Step Size:</label>
+                <input type="number" id="step" value="1" min="1">
+            </div>
+            
+            <button onclick="generateSequence()">Generate Sequence</button>
+        </div>
+
+        <div class="output">
+            <h2>Sequence:</h2>
+            <div id="sequenceOutput"></div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A-Level Grade Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>A-Level Grade Calculator</h1>
+        
+        <div class="input-section">
+            <label for="comp1">COMP1 (out of 120):</label>
+            <input type="number" id="comp1" min="0" max="120">
+            
+            <label for="comp2">COMP2 (out of 80):</label>
+            <input type="number" id="comp2" min="0" max="80">
+            
+            <label for="comp3">COMP3 (out of 80):</label>
+            <input type="number" id="comp3" min="0" max="80">
+            
+            <label for="comp4">COMP4 (out of 120):</label>
+            <input type="number" id="comp4" min="0" max="120">
+            
+            <button id="calculateButton">Calculate Grade</button>
+        </div>
+
+        <div class="output-section">
+            <p id="result"></p>
+            <p id="percentage"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
