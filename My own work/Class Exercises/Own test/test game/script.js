@@ -10,7 +10,6 @@ let right_slash = true
 let gameover = false 
 let health = 25
 let enemy_hp = []
-let enemy_b_num = []
 let last_eb_frame = []
 let last_hit_frame = -480
 let settedup = false
@@ -379,7 +378,6 @@ function game() {
 	if (enemy_hp.length<enemy_s.length){
 		enemy_hp.push (5)
 		last_eb_frame.push (-100)
-		enemy_b_num.push (0)
 	}
 
 	for (let enemy_s_num = 0 ; enemy_s_num < enemy_s.length ; enemy_s_num++){
@@ -388,57 +386,44 @@ function game() {
 			enemy_hp[enemy_s_num] = enemy_hp[enemy_s_num]-2
 		}
 		for (let pbn = 0 ; pbn < pbullet.length ; pbn++){
-			if(pbullet[pbn].overlaps(enemy)){
+			if(pbullet[pbn].overlaps(enemy[enemy_s_num])){
 				enemy_hp[enemy_s_num] = enemy_hp[enemy_s_num]-1
 				pbullet[pbn].remove()
 			}
 		}
-		if (enemy_hp[enemy_s_num]<1){
-			enemy_hp.splice(enemy_s_num,1)
-			last_eb_frame.splice(enemy_s_num,1)
-			enemy_s[enemy_s_num].remove()
-		}
+
 		if (enemy_s.length>0){
 			if ((playerb.x-enemy_s[enemy_s_num].x)>100||(playerb.x-enemy_s[enemy_s_num].x)<-100){
 				enemy_s[enemy_s_num].vel.x = 2*Math.cos((frameCount-60*enemy_s_num)*0.05)
 			}
 			else{
-				if ((frameCount-last_eb_frame[enemy_s_num])>60){
-				let eb = new enemy_b.Sprite()
-				if ((playerb.x-enemy_s[enemy_s_num].x)<400&&(playerb.x-enemy_s[enemy_s_num].x)>0){
-					eb.direction = 0
-					eb.x = enemy_s[enemy_s_num].x + 10
-					eb.y = enemy_s[enemy_s_num].y
-					enemy_b_num[enemy_s_num] += 1
-				}else{
-					eb.direction = 180
-					eb.x = enemy_s[enemy_s_num].x - 10
-					eb.y = enemy_s[enemy_s_num].y
-					enemy_b_num[enemy_s_num] += 1
-				}
-			}
-			if (enemy_b.length > 2){
-				for (let ebn = 0 ; ebn < enemy_b_num[enemy_s_num] ; ebn++) {
-					if (enemy_b[ebn].overlaps(floor)||enemy_b[ebn].overlaps(playerb)||(Math.abs(enemy_b[ebn].x-camera.x))>400||enemy_b[ebn].overlaps(slash)){
-						enemy_b[ebn].remove()
-						ebn -= 1
+				if ((frameCount-last_eb_frame[enemy_s_num])>20){
+					let eb = new enemy_b.Sprite()
+					last_eb_frame[enemy_s_num]=frameCount
+					if ((playerb.x-enemy_s[enemy_s_num].x)<400&&(playerb.x-enemy_s[enemy_s_num].x)>0){
+						eb.direction = 0
+						eb.x = enemy_s[enemy_s_num].x + 10
+						eb.y = enemy_s[enemy_s_num].y
+					}else{
+						eb.direction = 180
+						eb.x = enemy_s[enemy_s_num].x - 10
+						eb.y = enemy_s[enemy_s_num].y
 					}
-					if (ebn>0){
-						if ((Math.abs(enemy_b[ebn-1].x-enemy_b[ebn].x)<50&&Math.abs(enemy_b[ebn-1].x-enemy_b[ebn].x)>0)){
-							enemy_b_num[enemy_s_num] += -1
+			}
+				if (enemy_b.length > 0){
+					for (let ebn = 0 ; ebn < enemy_b.length ; ebn++) {
+						if (enemy_b[ebn].overlaps(floor)||enemy_b[ebn].overlaps(playerb)||(Math.abs(enemy_b[ebn].x-camera.x))>400||enemy_b[ebn].overlaps(slash)){
 							enemy_b[ebn].remove()
 							ebn -= 1
 						}
 					}
-					if (ebn>3){
-						enemy_b_num[enemy_s_num] += -1
-						enemy_b[ebn].remove()
-						ebn -= 1
-						last_eb_frame[enemy_s_num] = frameCount
-					}
 				}
 			}
-			}
+		}
+		if (enemy_hp[enemy_s_num]<1){
+			enemy_hp.splice(enemy_s_num,1)
+			last_eb_frame.splice(enemy_s_num,1) 
+			enemy_s[enemy_s_num].remove()
 		}
 	}
 }
