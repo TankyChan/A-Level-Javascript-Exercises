@@ -2,23 +2,22 @@
 // Add a getInfo() method that returns a string like: "Make Model"
 
 // Uncomment and complete below:
-// class Car {
-//   constructor(make = "Unknown", model = "Unknown") {
-//     // your code here
-//   }
-//   getInfo() {
-//     // your code here
-//   }
-// }
+ class Car {
+   constructor(make = "Unknown", model = "Unknown") {
+      this.make = make 
+      this.model = model
+   }
+   getInfo() {
+    return `${this.make} is a ${this.model}.`;
+   }
+ }
 
 document.getElementById("btnDefault").onclick = function() {
-  // const car = new Car();
-  // document.getElementById("output").innerText = car.getInfo();
-  document.getElementById("output").innerText = "(Your Car class output will appear here)";
+  const car = new Car();
+  document.getElementById("output").innerText = car.getInfo();
 };
 
 document.getElementById("btnCustom").onclick = function() {
-  // const car = new Car("Toyota", "Corolla");
-  // document.getElementById("output").innerText = car.getInfo();
-  document.getElementById("output").innerText = "(Your Car class output will appear here)";
+  const car = new Car("Toyota", "Corolla");
+  document.getElementById("output").innerText = car.getInfo();
 };
