@@ -2,18 +2,19 @@
 // Add increment() and getValue() methods
 
 // Uncomment and complete below:
-// class Counter {
-//   #value;
-//   constructor() {
-//     // your code here
-//   }
-//   increment() {
-//     // your code here
-//   }
-//   getValue() {
-//     // your code here
-//   }
-// }
+class Counter {
+  #value;
+   constructor() {
+     this.output = output
+     this.#value =  
+   }
+   increment() {
+     
+   }
+   getValue() {
+     
+   }
+ }
 
 const counter = new Counter();
 document.getElementById("btnInc").onclick = function() {

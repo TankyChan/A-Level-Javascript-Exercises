@@ -2,25 +2,24 @@
 // Add deposit(amount) and getBalance() methods
 
 // Uncomment and complete below:
-// class BankAccount {
-//   #balance;
-//   constructor() {
-//     // your code here
-//   }
-//   deposit(amount) {
-//     // your code here
-//   }
-//   getBalance() {
-//     // your code here
-//   }
-// }
+ class BankAccount {
+   #balance = 0;
+   constructor() {
+     
+   }
+   deposit(amount) {
+     this.#balance = this.#balance + amount
+   }
+   getBalance() {
+     return this.#balance
+   }
+ }
 
 const account = new BankAccount();
 document.getElementById("btnDeposit").onclick = function() {
-  // account.deposit(50);
+  account.deposit(50);
   document.getElementById("output").innerText = "(Deposit method called. Check balance!)";
 };
 document.getElementById("btnShow").onclick = function() {
-  // document.getElementById("output").innerText = `Balance: $${account.getBalance()}`;
-  document.getElementById("output").innerText = "(Your BankAccount class output will appear here)";
+  document.getElementById("output").innerText = `Balance: $${account.getBalance()}`;
 };
