@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 4a – ATM Withdrawal Simulator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Task 4a – ATM Withdrawal Simulator</h1>
+    <label for="balanceInput">Enter starting balance:</label>
+    <input type="number" id="balanceInput" min="1" step="0.01">
+    <button id="setBalanceBtn">Set Balance</button>
+    <br><br>
+    <label for="withdrawInput">Enter withdrawal amount (0 to finish):</label>
+    <input type="number" id="withdrawInput" min="0" step="0.01">
+    <button id="withdrawBtn">Withdraw</button>
+    <div id="output"></div>
+    <script src="script.js"></script>
+</body>
+</html>

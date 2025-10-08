@@ -10,6 +10,7 @@ class Person {
 }
 
 document.getElementById("btnShow").onclick = function() {
-  const person = new Person("Alex", 17);
-  document.getElementById("output").innerText = person.getInfo();
+  const person1 = new Person("Alex", 17);
+  const person2 = new Person("Bob", 82);
+  document.getElementById("output").innerText = person2.getInfo();
 };

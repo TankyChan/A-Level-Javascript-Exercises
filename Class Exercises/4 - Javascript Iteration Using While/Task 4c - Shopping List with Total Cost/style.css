@@ -1,0 +1,19 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 2em;
+    background: #f9f9f9;
+}
+button {
+    padding: 0.5em 1em;
+    font-size: 1em;
+    margin-bottom: 1em;
+}
+#output {
+    margin-top: 1em;
+    font-weight: bold;
+}
+input[type="text"], input[type="number"] {
+    padding: 0.3em;
+    font-size: 1em;
+    margin-right: 0.5em;
+}
