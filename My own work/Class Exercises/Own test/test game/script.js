@@ -137,6 +137,7 @@ function setting_up() {
 	enemy_f.rotation = 45
 	enemy_f.rotationLock =true
 	enemy_f.tile = "f"
+	enemy_f.collider = 'none'
 	
 	let player_g = new GlueJoint(playerb, playerl);
 
@@ -338,14 +339,9 @@ function game() {
 		}
 	}
 
-	if ((playerl.collides(enemy)||playerb.collides(enemy)||enemy_b.overlaps(playerb)||enemy_b.overlaps(playerl))&&(frameCount - last_hit_frame)>10){
+	if ((playerl.collides(enemy)||playerb.collides(enemy)||enemy_b.overlaps(playerb)||enemy_b.overlaps(playerl)||enemy.overlaps(playerl)||enemy.overlaps(playerb))&&(frameCount - last_hit_frame)>10){
 		health -= 1
 		last_hit_frame = frameCount
-		if (playerb.x>enemy.x){
-			if (frameCount-last_hit_frame<120){
-				playerb.vel.x = 5
-			}
-		}
 	}
 	
 	if (health > 0){
@@ -392,6 +388,17 @@ function game() {
 			}
 		}
 
+		if (enemy_s[enemy_s_num].collides(playerb)||enemy_s[enemy_s_num].collides(playerl)){
+			if (playerl.x>enemy_s[enemy_s_num].x){
+				playerl.vel.x = 5
+				playerb.vel.x = 5
+			}
+			if (playerl.x<enemy_s[enemy_s_num].x){
+				playerl.vel.x = -5
+				playerb.vel.x = -5
+			}
+		}
+
 		if (enemy_s.length>0){
 			if ((playerb.x-enemy_s[enemy_s_num].x)>100||(playerb.x-enemy_s[enemy_s_num].x)<-100){
 				enemy_s[enemy_s_num].vel.x = 2*Math.cos((frameCount-60*enemy_s_num)*0.05)
@@ -424,6 +431,17 @@ function game() {
 			enemy_hp.splice(enemy_s_num,1)
 			last_eb_frame.splice(enemy_s_num,1) 
 			enemy_s[enemy_s_num].remove()
+		}
+	}
+	for (let enemy_f_num = 0 ; enemy_f_num < enemy_f.length ; enemy_f_num++){
+		if (enemy_f.length>0){
+			if ((playerb.x-enemy_f[enemy_f_num].x)<-70&&(playerb.x-enemy_f[enemy_f_num].x)>-200){
+				enemy_f[enemy_f_num].x -= 2
+				enemy_f[enemy_f_num].y += 1.5*Math.cos((frameCount-60*enemy_f_num)*0.05)
+			}
+			else if((playerb.x-enemy_f[enemy_f_num].x)>-70){
+				enemy_f[enemy_f_num].y += 5
+			}
 		}
 	}
 }
