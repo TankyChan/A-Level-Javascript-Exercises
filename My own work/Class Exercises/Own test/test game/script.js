@@ -2,7 +2,7 @@ let playerl, playerb, bullet, slash, player, slashing, health_point
 let floor, block
 let enemy,enemy_s,enemy_b, enemy_f
 let button, start, restart, level_button, gg
-let select_arrow 
+let select_arrow  
 
 let doublejump = true 
 let right = true 
@@ -287,7 +287,7 @@ function game() {
 		}
 
 	if (kb.presses("u")){
-		if ((frameCount-last_slash_frame)>30){
+		if ((frameCount-last_slash_frame)>20){
 			let slashing = new slash.Sprite()
 			slashing.offset.y = 30 
 			slashing.y = playerb.y
@@ -335,13 +335,17 @@ function game() {
 			slash[psl].x = playerb.x -10
 			slash[psl].y = playerb.y
 		}
-		if (kb.released("u")){
+		if (((kb.pressing("u")==false)||playerl.colliding(floor))&&(frameCount-last_slash_frame)>10){
 			slash[psl].remove()
 		}
 	}
 
-	if ((playerl.collides(enemy)||playerb.collides(enemy)||enemy_b.overlaps(playerb)||enemy_b.overlaps(playerl)||enemy.overlaps(playerl)||enemy.overlaps(playerb))&&(frameCount - last_hit_frame)>10){
+	if ((enemy_b.overlaps(playerb)||enemy_b.overlaps(playerl))&&(frameCount - last_hit_frame)>10){
 		health -= 1
+		last_hit_frame = frameCount
+	}
+	if ((enemy_f.overlaps(playerl)||enemy_f.overlaps(playerb)||playerl.collides(enemy)||playerb.collides(enemy))&&(frameCount - last_hit_frame)>10){
+		health -= 3
 		last_hit_frame = frameCount
 	}
 	
@@ -380,7 +384,8 @@ function game() {
 	for (let enemy_s_num = 0 ; enemy_s_num < enemy_s.length ; enemy_s_num++){
 		
 		if (slash.overlaps(enemy_s[enemy_s_num])){
-			enemy_hp[enemy_s_num] = enemy_hp[enemy_s_num]-2
+			enemy_hp[enemy_s_num] = enemy_hp[enemy_s_num]-3
+			last_eb_frame[enemy_s_num]=frameCount
 		}
 		for (let pbn = 0 ; pbn < pbullet.length ; pbn++){
 			if(pbullet[pbn].overlaps(enemy[enemy_s_num])){
@@ -441,8 +446,19 @@ function game() {
 				enemy_f[enemy_f_num].y += 1.5*Math.cos((frameCount-60*enemy_f_num)*0.05)
 			}
 			else if((playerb.x-enemy_f[enemy_f_num].x)>-70){
-				enemy_f[enemy_f_num].y += 2
+				enemy_f[enemy_f_num].y += 7
 			}
+
+			if (enemy_f[enemy_f_num].overlaps(playerb)||enemy_f[enemy_f_num].overlaps(playerl)){
+				if (playerl.x>enemy_f[enemy_f_num].x){
+					playerl.vel.x = 5
+					playerb.vel.x = 5
+				}
+				if (playerl.x<enemy_f[enemy_f_num].x){
+					playerl.vel.x = -5
+					playerb.vel.x = -5
+				}
+		}
 		}
 	}
 }
