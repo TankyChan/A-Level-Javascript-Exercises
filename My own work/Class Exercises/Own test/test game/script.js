@@ -1,5 +1,5 @@
 let playerl, playerb, bullet, slash, player, slashing, health_point
-let floor, block
+let floor, block, lava
 let enemy,enemy_s,enemy_b, enemy_f
 let button, start, restart, level_button, gg
 let select_arrow  
@@ -43,7 +43,18 @@ let levels = [ ["...................",
 				"=.................=",
 				"=.................=",
 				"=.................=",
-				"==================="]
+				"==================="],
+			   ["...................",
+				"=.................=",
+				"=.................=",
+				"=.................=",
+				"=.................=",
+				"=.................=",
+				"=........f........=",
+				"=.................=",
+				"=.................=",
+				"=.................=",
+				"========~~~========"]
 ]
 
 
@@ -53,6 +64,7 @@ function setup(){
 	player = new Group()
 	block = new Group()
 	floor = new block.Group()
+	lava = new block.Group()
 	button = new Group()
 	gg = new Sprite()
 	enemy = new Group()
@@ -100,7 +112,12 @@ function setting_up() {
 	floor.color = "blue"
 	floor.bounciness = 0.1;
 
-
+	lava.w = 50
+	lava.h = 30
+	lava.tile = "~"
+	lava.collider = "static"
+	lava.color = "orange"
+	
 	pbullet = new player.Group()
 	pbullet.diameter=10
 	pbullet.color = "red"
@@ -147,7 +164,10 @@ function setting_up() {
 		50,
 		floor.w,
 		floor.h,
+		
 	)
+
+	lava.offset.y = 10
 
 	settedup = true
 }
@@ -224,9 +244,9 @@ function game() {
 			playerb.vel.x = 0 
 	}
 	
-	if (kb.presses("space")&&(playerl.colliding(floor)||doublejump))
+	if (kb.presses("space")&&(playerl.colliding(block)||doublejump))
 	{
-		if (playerl.colliding(floor)&&playerb.colliding(floor)){
+		if (playerl.colliding(block)&&playerb.colliding(block)){
 			playerb.vel.y = -10 ;
 			if (right){
 				playerb.vel.x = -8
@@ -235,10 +255,10 @@ function game() {
 				playerb.vel.x = +8
 			}
 		}
-		else if(playerl.colliding(floor)&&playerb.colliding(floor)==false){
+		else if(playerl.colliding(block)&&playerb.colliding(block)==false){
 			playerb.vel.y = -8 ;
 		}
-		else if (playerl.collided(floor) == false){
+		else if (playerl.collided(block) == false){
 			doublejump = false
 			playerb.vel.y = -7.5 ;
 		}
@@ -458,7 +478,7 @@ function game() {
 					playerl.vel.x = -5
 					playerb.vel.x = -5
 				}
-		}
+			}
 		}
 	}
 }
