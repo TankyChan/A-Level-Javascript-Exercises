@@ -1,5 +1,5 @@
 let playerl, playerb, bullet, slash, player, slashing, health_point
-let floor, block, lava
+let floor, block, lava, damaged_block
 let enemy,enemy_s,enemy_b, enemy_f
 let button, start, restart, level_button, gg
 let select_arrow  
@@ -39,10 +39,10 @@ let levels = [ ["...................",
 				"=.................=",
 				"=.................=",
 				"=.................=",
-				"=........f........=",
 				"=.................=",
 				"=.................=",
-				"=.................=",
+				"=..........x......=",
+				"=..........x......=",
 				"==================="],
 			   ["...................",
 				"=.................=",
@@ -88,7 +88,7 @@ function setting_up() {
 	playerb.h =20
 	playerb.color = "red"
 	playerb.rotationLock=true
-	playerb.drag = 0;
+	playerb.drag = 0
 	playerb.bounciness = 0
 	playerb.mass = 2
 	playerb.x = 100
@@ -117,6 +117,12 @@ function setting_up() {
 	lava.tile = "~"
 	lava.collider = "static"
 	lava.color = "orange"
+
+	damaged_block.w = 50
+	damaged_block.h = 50
+	damaged_block.tile = "x"
+	damaged_block.collider = "static"
+	damaged_block.color = "yellow"
 	
 	pbullet = new player.Group()
 	pbullet.diameter=10
@@ -155,6 +161,8 @@ function setting_up() {
 	enemy_f.rotationLock =true
 	enemy_f.tile = "f"
 	enemy_f.collider = 'none'
+
+	
 
 	
 	let player_g = new GlueJoint(playerb, playerl);
@@ -368,6 +376,10 @@ function game() {
 		health -= 3
 		last_hit_frame = frameCount
 	}
+	if (playerl.colliding(lava)&&(frameCount - last_hit_frame)>50){
+		health -= 5
+		last_hit_frame = frameCount
+	}
 	
 	if (health > 0){
 	health_point.amount = health
@@ -459,6 +471,7 @@ function game() {
 			enemy_s[enemy_s_num].remove()
 		}
 	}
+
 	for (let enemy_f_num = 0 ; enemy_f_num < enemy_f.length ; enemy_f_num++){
 		if (enemy_f.length>0){
 			if ((playerb.x-enemy_f[enemy_f_num].x)<-70&&(playerb.x-enemy_f[enemy_f_num].x)>-400){
@@ -478,6 +491,10 @@ function game() {
 					playerl.vel.x = -5
 					playerb.vel.x = -5
 				}
+				enemy_f[enemy_f_num].remove()
+			}
+			else if (enemy_f[enemy_f_num].overlaps(block)){
+				enemy_f[enemy_f_num].remove()
 			}
 		}
 	}
