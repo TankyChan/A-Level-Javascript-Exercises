@@ -1,6 +1,6 @@
 let playerl, playerb, bullet, slash, player, slashing, health_point
 let floor, block, lava, damaged_block
-let enemy,enemy_s,enemy_b, enemy_f
+let enemy,enemy_s,enemy_b, enemy_f, boss
 let button, start, restart, level_button, gg
 let select_arrow  
 
@@ -10,6 +10,7 @@ let right_slash = true
 let gameover = false 
 let health = 25
 let enemy_hp = []
+let damaged_block_hp = []
 let last_eb_frame = []
 let last_hit_frame = -480
 let settedup = false
@@ -21,6 +22,7 @@ let started = false
 let last_slash_frame = -480
 let level_choise = 0
 let level_num = 0
+let boss_hp = 0 
 
 let levels = [ ["...................",
 				"=.................=",
@@ -38,9 +40,9 @@ let levels = [ ["...................",
 				"=.................=",
 				"=.................=",
 				"=.................=",
+				"=.........f.......=",
 				"=.................=",
-				"=.................=",
-				"=.................=",
+				"=..........x......=",
 				"=..........x......=",
 				"=..........x......=",
 				"==================="],
@@ -50,7 +52,7 @@ let levels = [ ["...................",
 				"=.................=",
 				"=.................=",
 				"=.................=",
-				"=........f........=",
+				"=.................=",
 				"=.................=",
 				"=.................=",
 				"=.................=",
@@ -65,11 +67,13 @@ function setup(){
 	block = new Group()
 	floor = new block.Group()
 	lava = new block.Group()
+	damaged_block = new block.Group()
 	button = new Group()
 	gg = new Sprite()
 	enemy = new Group()
 	enemy_s = new enemy.Group()
 	enemy_f = new enemy.Group()
+	boss = new enemy.Group()
 
 }
 
@@ -230,7 +234,7 @@ function game() {
 		if (kb.presses("o")&&playerl.colliding(floor)){
 			playerb.vel.x = -8
 		}
-		if (playerb.colliding(floor)&&playerb.colliding(floor)){
+		if (playerb.colliding(block)&&playerb.colliding(block)){
 			playerb.y += 1
 			playerl.y += 1
 		}
@@ -243,12 +247,12 @@ function game() {
 		if (kb.presses("o")&&playerl.colliding(floor)){
 			playerb.vel.x = 8
 		} 
-		if (playerb.colliding(floor)&&playerb.colliding(floor)){
+		if (playerb.colliding(block)&&playerb.colliding(block)){
 			playerl.y += 1
 			playerb.y += 1
 		}
 	}
-	else if (playerl.colliding(floor)){
+	else if (playerl.colliding(block)){
 			playerb.vel.x = 0 
 	}
 	
@@ -496,6 +500,26 @@ function game() {
 			else if (enemy_f[enemy_f_num].overlaps(block)){
 				enemy_f[enemy_f_num].remove()
 			}
+		}
+	}
+
+	if (damaged_block_hp.length<damaged_block.length){
+		damaged_block_hp.push (10)
+	}
+	for (let damaged_block_num = 0 ; damaged_block_num < damaged_block.length ; damaged_block_num++){
+
+		if (slash.overlaps(damaged_block[damaged_block_num])){
+			damaged_block_hp[damaged_block_num] = damaged_block_hp[damaged_block_num]-3
+		}
+		for (let pbn = 0 ; pbn < pbullet.length ; pbn++){
+			if(pbullet[pbn].overlaps(damaged_block[damaged_block_num])){
+				damaged_block_hp[damaged_block_num] = damaged_block_hp[damaged_block_num]-1
+				pbullet[pbn].remove()
+			}
+		}
+
+		if (damaged_block_hp[damaged_block_num]<= 0){
+			damaged_block[damaged_block_num].remove()
 		}
 	}
 }
