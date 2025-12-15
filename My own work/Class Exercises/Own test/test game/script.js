@@ -33,7 +33,7 @@ let levels = [ ["...................",
 				"=.................=",
 				"=.................=",
 				"=.................=",
-				"=.....s..s...s....=",
+				"=.....s..s...b....=",
 				"==================="],
 			   ["...................",
 				"=.................=",
@@ -59,6 +59,15 @@ let levels = [ ["...................",
 				"========~~~========"]
 ]
 
+let boss_data = [
+	[[[0, 0], [75, 0], [75, 75], [0, 75],[0,0]]],
+	[],
+	[],
+	[],
+	[],
+	[]
+]
+
 
 function setup(){
 	new Canvas(750, 375);
@@ -74,7 +83,6 @@ function setup(){
 	enemy_s = new enemy.Group()
 	enemy_f = new enemy.Group()
 	boss = new enemy.Group()
-
 }
 
 
@@ -166,7 +174,9 @@ function setting_up() {
 	enemy_f.tile = "f"
 	enemy_f.collider = 'none'
 
-	
+	boss = new enemy.Sprite(boss_data[level_choise][0])
+	boss.rotationLock = true
+	boss.tile = "b"
 
 	
 	let player_g = new GlueJoint(playerb, playerl);
