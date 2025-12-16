@@ -1,5 +1,5 @@
 let playerl, playerb, bullet, slash, player, slashing, health_point
-let floor, block, lava, damaged_block
+let floor, block, lava, damaged_block, boss_door
 let enemy,enemy_s,enemy_b, enemy_f, boss
 let button, start, restart, level_button, gg
 let select_arrow  
@@ -19,22 +19,24 @@ let game_start = false
 let menu_setted = false
 let choose_level = false
 let started = false
+let boss_fight = false
 let last_slash_frame = -480
 let level_choise = 0
 let level_num = 0
-let boss_hp = 0 
+let boss_hp = 40
+let boss_last_hit_frame = -480
 
-let levels = [ ["...................",
-				"=.................=",
-				"=.................=",
-				"=.................=",
-				"=.................=",
-				"=.................=",
-				"=.................=",
-				"=.................=",
-				"=.................=",
-				"=.....s..s...b....=",
-				"==================="],
+let levels = [ ["...................==========",
+				"=.................=..........=",
+				"=.................=..........=",
+				"=.................=..........=",
+				"=.................=..........=",
+				"=.................=..........=",
+				"=..........f......=..........=",
+				"=.................=..........=",
+				"=.................D..........=",
+				"=.....s..s........D.......b..=",
+				"============================="],
 			   ["...................",
 				"=.................=",
 				"=.................=",
@@ -76,6 +78,7 @@ function setup(){
 	block = new Group()
 	floor = new block.Group()
 	lava = new block.Group()
+	boss_door = new block.Group()
 	damaged_block = new block.Group()
 	button = new Group()
 	gg = new Sprite()
@@ -129,6 +132,12 @@ function setting_up() {
 	lava.tile = "~"
 	lava.collider = "static"
 	lava.color = "orange"
+
+	boss_door.w = 50
+	boss_door.h = 50
+	boss_door.tile = "D"
+	boss_door.collider = "none"
+	boss_door.color = "gray"
 
 	damaged_block.w = 50
 	damaged_block.h = 50
@@ -235,7 +244,7 @@ function draw() {
 
 function game() {
 	camera.x = playerb.x;
-	camera.y = playerb.y;
+	camera.y = playerb.y-70;
 	if (kb.pressing("a")){
 		right = false
 		if (playerl.vel.x > -3){
@@ -434,7 +443,7 @@ function game() {
 			last_eb_frame[enemy_s_num]=frameCount
 		}
 		for (let pbn = 0 ; pbn < pbullet.length ; pbn++){
-			if(pbullet[pbn].overlaps(enemy[enemy_s_num])){
+			if(pbullet[pbn].overlaps(enemy_s[enemy_s_num])){
 				enemy_hp[enemy_s_num] = enemy_hp[enemy_s_num]-1
 				pbullet[pbn].remove()
 			}
@@ -531,6 +540,10 @@ function game() {
 		if (damaged_block_hp[damaged_block_num]<= 0){
 			damaged_block[damaged_block_num].remove()
 		}
+	}
+
+	if (playerb.overlapped(boss_door)&&playerb.x>boss_door[0].x){
+		boss_door.collider = "static"
 	}
 }
 
