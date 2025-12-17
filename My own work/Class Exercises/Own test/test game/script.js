@@ -1,6 +1,6 @@
 let playerl, playerb, bullet, slash, player, slashing, health_point
 let floor, block, lava, damaged_block, boss_door
-let enemy,enemy_s,enemy_b, enemy_f, boss
+let enemy,enemy_s,enemy_b, enemy_f, boss, boss_hp_bar
 let button, start, restart, level_button, gg
 let select_arrow  
 
@@ -62,7 +62,7 @@ let levels = [ ["...................==========",
 ]
 
 let boss_data = [
-	[[[0, 0], [75, 0], [75, 75], [0, 75],[0,0]]],
+	[[[0, 0], [60, 0], [60, 60], [0, 60],[0,0]]],
 	[],
 	[],
 	[],
@@ -164,6 +164,12 @@ function setting_up() {
 	health_point.collider= "n"
 	health_point.color = "yellow"
 
+	boss_hp_bar = new Group()
+	boss_hp_bar.w = 15
+	boss_hp_bar.h = 2
+	boss_hp_bar.collider= "n"
+	boss_hp_bar.color = "yellow"
+
 	enemy.color ="purple"
 
 	enemy_s.w = 25
@@ -187,6 +193,8 @@ function setting_up() {
 	boss.rotationLock = true
 	boss.tile = "b"
 
+	boss_hp = 40
+
 	
 	let player_g = new GlueJoint(playerb, playerl);
 
@@ -199,7 +207,7 @@ function setting_up() {
 	)
 
 	lava.offset.y = 10
-
+	boss_fight = false
 	settedup = true
 }
 
@@ -302,7 +310,7 @@ function game() {
 	if (kb.presses("i")){
 			let pb = new pbullet.Sprite()
 			if (right == true){
-				if (playerl.colliding(floor)&&playerb.colliding(floor)){
+				if (playerl.colliding(block)&&playerb.colliding(block)){
 					pb.x = playerb.x -18
 					pb.y = playerb.y
 					pb.direction = 180;
@@ -314,7 +322,7 @@ function game() {
 				}
 			}
 			else if (right == false){
-				if (playerl.colliding(floor)&&playerb.colliding(floor)){
+				if (playerl.colliding(block)&&playerb.colliding(block)){
 					pb.x = playerb.x + 18
 					pb.y = playerb.y
 					pb.direction = 0;
@@ -544,7 +552,33 @@ function game() {
 
 	if (playerb.overlapped(boss_door)&&playerb.x>boss_door[0].x){
 		boss_door.collider = "static"
+		boss_fight = true
 	}
+
+	if (boss_fight == true){
+		if (boss_hp > 0){
+			boss_hp_bar.amount = boss_hp
+			boss_hp_bar[0].x = camera.x + 350
+			boss_hp_bar[0].y = camera.y
+
+			if (slash.overlapped(boss)){
+				boss_hp = boss_hp-3
+			}
+			for (let pbn = 0 ; pbn < pbullet.length ; pbn++){
+				if(pbullet[pbn].overlaps(boss)){
+					boss_hp = boss_hp-1
+					pbullet[pbn].remove()
+				}
+			}
+			for (let bhp = 1 ; bhp < boss_hp ; bhp++){
+				boss_hp_bar[bhp].x = camera.x + 350
+				boss_hp_bar[bhp].y = boss_hp_bar[0].y -4*bhp
+			}
+		}
+
+
+	}
+
 }
 
 
